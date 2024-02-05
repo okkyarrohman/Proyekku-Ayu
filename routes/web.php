@@ -29,3 +29,7 @@ Route::group(['middleware' => 'role:murid'], function () {
         // Start Your murid Routes From Here
     });
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
