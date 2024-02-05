@@ -12,7 +12,7 @@ class TugasMuridController extends Controller
      */
     public function index()
     {
-        //
+        return view('murid.tugas.index');
     }
 
     /**
@@ -20,7 +20,7 @@ class TugasMuridController extends Controller
      */
     public function create()
     {
-        //
+        return view('murid.tugas.create');
     }
 
     /**
@@ -28,7 +28,7 @@ class TugasMuridController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return redirect()->route('tugas.index')->with('success', 'Data Berhasil Ditambahkan');
     }
 
     /**
@@ -36,7 +36,7 @@ class TugasMuridController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return view('murid.tugas.show');
     }
 
     /**
@@ -44,7 +44,7 @@ class TugasMuridController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return view('murid.tugas.edit');
     }
 
     /**
@@ -52,7 +52,7 @@ class TugasMuridController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        return redirect()->route('tugas.index')->with('success', 'Data Berhasil Diupdate');
     }
 
     /**
@@ -60,6 +60,6 @@ class TugasMuridController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        return redirect()->route('tugas.index')->with('success', 'Data Berhasil Dihapus');
     }
 }

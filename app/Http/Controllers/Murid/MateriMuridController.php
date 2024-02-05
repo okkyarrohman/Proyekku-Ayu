@@ -12,7 +12,7 @@ class MateriMuridController extends Controller
      */
     public function index()
     {
-        //
+        return view('murid.materi.index');
     }
 
     /**
@@ -20,7 +20,7 @@ class MateriMuridController extends Controller
      */
     public function create()
     {
-        //
+        return view('murid.materi.create');
     }
 
     /**
@@ -28,7 +28,7 @@ class MateriMuridController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return redirect()->route('materi.index')->with('success', 'Data Berhasil Ditambahkan');
     }
 
     /**
@@ -36,7 +36,7 @@ class MateriMuridController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return view('murid.materi.show');
     }
 
     /**
@@ -44,7 +44,7 @@ class MateriMuridController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return view('murid.materi.edit');
     }
 
     /**
@@ -52,7 +52,7 @@ class MateriMuridController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        return redirect()->route('materi.index')->with('success', 'Data Berhasil Diupdate');
     }
 
     /**
@@ -60,6 +60,6 @@ class MateriMuridController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        return redirect()->route('materi.index')->with('success', 'Data Berhasil Dihapus');
     }
 }

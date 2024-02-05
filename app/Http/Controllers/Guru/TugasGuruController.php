@@ -12,7 +12,7 @@ class TugasGuruController extends Controller
      */
     public function index()
     {
-        //
+        return view('guru.tugas.index');
     }
 
     /**
@@ -20,7 +20,7 @@ class TugasGuruController extends Controller
      */
     public function create()
     {
-        //
+        return view('guru.tugas.create');
     }
 
     /**
@@ -28,7 +28,7 @@ class TugasGuruController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return redirect()->route('tugas-guru.index')->with('success', 'Data Tugas Berhasil Ditambahkan');
     }
 
     /**
@@ -36,7 +36,7 @@ class TugasGuruController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return view('guru.tugas.show');
     }
 
     /**
@@ -44,7 +44,7 @@ class TugasGuruController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return view('guru.tugas.edit');
     }
 
     /**
@@ -52,7 +52,7 @@ class TugasGuruController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        return redirect()->route('tugas-guru.index')->with('success', 'Data Tugas Berhasil Diupdate');
     }
 
     /**
@@ -60,6 +60,6 @@ class TugasGuruController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        return redirect()->route('tugas-guru.index')->with('success', 'Data Tugas Berhasil Dihapus');
     }
 }

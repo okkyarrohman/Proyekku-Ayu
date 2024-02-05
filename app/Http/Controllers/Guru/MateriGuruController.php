@@ -12,7 +12,8 @@ class MateriGuruController extends Controller
      */
     public function index()
     {
-        //
+
+        return view('guru.materi.index');
     }
 
     /**
@@ -20,7 +21,7 @@ class MateriGuruController extends Controller
      */
     public function create()
     {
-        //
+        return view('guru.materi.create');
     }
 
     /**
@@ -28,7 +29,7 @@ class MateriGuruController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return redirect()->route('materi-guru.index')->with('success', 'Data Berhasil Ditambahkan');
     }
 
     /**
@@ -36,7 +37,7 @@ class MateriGuruController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return view('guru.materi.show');
     }
 
     /**
@@ -44,7 +45,7 @@ class MateriGuruController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return view('guru.materi.edit');
     }
 
     /**
@@ -52,7 +53,7 @@ class MateriGuruController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        return redirect()->route('materi-guru.index')->with('success', 'Data Berhasil Diupdate');
     }
 
     /**
@@ -60,6 +61,6 @@ class MateriGuruController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        return redirect()->route('materi-guru.index')->with('success', 'Data Berhasil Dihapus');
     }
 }
