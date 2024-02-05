@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class LoginController extends Controller
 {
@@ -35,5 +38,39 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    protected function authenticated(Request $request, $user)
+    {
+        $guru = $user->hasRole('guru');
+
+        if ($guru) {
+            return redirect()->route('dashboard.guru');
+        } else {
+            $user->session_login_at = Carbon::now();
+            $user->save();
+
+            return redirect()->route('dashboard.murid');
+        }
+    }
+
+    public function logout(Request $request)
+    {
+        $user = auth()->user();
+        if ($user->session_login_at) {
+            $timeDiff = Carbon::parse($user->session_login_at)->diffInMinutes(Carbon::now());
+            $user->total_login += $timeDiff;
+        }
+        // Reset Waktu login
+        $user->session_login_at = null;
+        $user->save();
+
+        $this->guard()->logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect()->route('landing-page');
     }
 }

@@ -21,7 +21,8 @@ Route::view('/', 'welcome')->name('landing-page');
 // Route Guru
 Route::group(['middleware' => 'role:guru'], function () {
     route::prefix('guru')->group(function () {
-        // Start Your Guru Routes From Here
+        // Start Your guru Routes From Here
+        Route::get('/dashboard', [HomeController::class, 'guru'])->name('dashboard.guru');
     });
 });
 
@@ -29,6 +30,7 @@ Route::group(['middleware' => 'role:guru'], function () {
 Route::group(['middleware' => 'role:murid'], function () {
     route::prefix('murid')->group(function () {
         // Start Your murid Routes From Here
+        Route::get('/dashboard', [HomeController::class, 'murid'])->name('dashboard.murid');
     });
 });
 
