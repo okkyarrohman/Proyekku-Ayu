@@ -1,12 +1,16 @@
+import DropdownItem from "@/Components/General/atoms/DropdownItem";
 import SecondaryButton from "@/Components/General/atoms/SecondaryButton";
+import DropdownField from "@/Components/General/molecules/DropdownField";
 import InputEmailField from "@/Components/General/molecules/InputEmailField";
 import InputFileField from "@/Components/General/molecules/InputFileField";
 import InputPasswordField from "@/Components/General/molecules/InputPasswordField";
 import InputTextField from "@/Components/General/molecules/InputTextField";
 import RegisterCard from "@/Components/Register/molecules/RegisterCard";
-import { useForm } from "@inertiajs/react";
+import { useForm, usePage } from "@inertiajs/react";
 
 export default function Register() {
+    const { classes } = usePage().props;
+
     const { data, setData, post, errors } = useForm({
         name: "",
         class_id: "",
@@ -34,6 +38,28 @@ export default function Register() {
                         onChange={(e) => setData("name", e.target.value)}
                         error={errors.name}
                     />
+                    <DropdownField
+                        label="Kelas"
+                        name="class_id"
+                        placeholder="Kelas"
+                        value={
+                            classes.find(
+                                (classItem) => classItem.id === data.class_id
+                            )?.name
+                        }
+                        error={errors.class_id}
+                    >
+                        {classes.map((classItem) => {
+                            return (
+                                <DropdownItem
+                                    option={classItem.name}
+                                    onClick={() =>
+                                        setData("class_id", classItem.id)
+                                    }
+                                />
+                            );
+                        })}
+                    </DropdownField>
                     <InputEmailField
                         label="Email"
                         name="email"

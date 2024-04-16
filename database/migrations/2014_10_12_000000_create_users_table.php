@@ -26,7 +26,7 @@ return new class extends Migration
             $table->integer('total_login')->nullable();
             $table->timestamps();
 
-            $table->foreign('class_id')->references('id')->on('class');
+            $table->foreign('class_id')->references('id')->on('classes');
         });
     }
 
