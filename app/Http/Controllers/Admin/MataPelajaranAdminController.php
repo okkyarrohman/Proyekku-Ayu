@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\MataPelajaran;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class MataPelajaranAdminController extends Controller
 {
@@ -12,7 +14,9 @@ class MataPelajaranAdminController extends Controller
      */
     public function index()
     {
-        //
+        $mapels = MataPelajaran::all();
+
+        return Inertia::render('Admin/MataPelajaran/MataPelajaranIndex', compact('mapels'));
     }
 
     /**
@@ -20,7 +24,7 @@ class MataPelajaranAdminController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Admin/MataPelajaran/MataPelajaranCreate');
     }
 
     /**
@@ -28,7 +32,11 @@ class MataPelajaranAdminController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $mapels = MataPelajaran::create([
+            'name' => $request->name,
+            'class_id' => $request->class_id,
+            'guru_id' => $request->guru_id
+        ]);
     }
 
     /**
@@ -36,7 +44,9 @@ class MataPelajaranAdminController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $mapels = MataPelajaran::where('id', $id)->first();
+
+        return Inertia::render('Admin/MataPelajaran/MataPelajaranShow', compact('mapels'));
     }
 
     /**
@@ -44,7 +54,9 @@ class MataPelajaranAdminController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $mapels = MataPelajaran::where('id', $id)->first();
+
+        return Inertia::render('Admin/MataPelajaran/MataPelajaranEdit', compact('mapels'));
     }
 
     /**
@@ -52,7 +64,11 @@ class MataPelajaranAdminController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $mapels = MataPelajaran::find($id);
+
+        $mapelsUpdate = $request->all();
+
+        $mapels->update($mapelsUpdate);
     }
 
     /**
@@ -60,6 +76,8 @@ class MataPelajaranAdminController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $mapels = MataPelajaran::find($id);
+
+        $mapels->delete();
     }
 }

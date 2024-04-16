@@ -42,7 +42,7 @@ class UserAdminController extends Controller
 
         $users = User::create([
             'name' => $request->name,
-            'kelas' => $request->kelas,
+            'class_id' => $request->class_id,
             'role' => 'murid',
             'photo' => $fileName,
             'email' => $request->email,
@@ -108,7 +108,7 @@ class UserAdminController extends Controller
             $fileName = $users->photo;
         }
 
-        $usersUpdate = $request->only(['name', 'kelas', 'role', 'photo', 'email', 'password']);
+        $usersUpdate = $request->only(['name', 'class_id', 'role', 'photo', 'email', 'password']);
 
         $users->update($usersUpdate);
     }

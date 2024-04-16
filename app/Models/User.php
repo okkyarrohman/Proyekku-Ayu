@@ -23,7 +23,7 @@ class User extends Authenticatable
         'name',
         'email',
         'photo',
-        'kelas',
+        'class',
         'nip',
         'role',
         'password',
