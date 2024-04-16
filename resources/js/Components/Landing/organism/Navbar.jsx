@@ -27,7 +27,7 @@ export default function Navbar({ authUser }) {
                         return <NavLink text={item.text} link={item.link} />;
                     })}
                 </ul>
-                <AuthLink />
+                <AuthLink authUser={authUser} />
             </nav>
 
             {/* Mobile Navbar */}

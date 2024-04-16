@@ -35,4 +35,9 @@ class HomeController extends Controller
     {
         return view('murid.dashboard');
     }
+
+    public function admin()
+    {
+        return view('guru.dashboard');
+    }
 }
