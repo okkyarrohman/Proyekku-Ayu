@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class HomeController extends Controller
 {
@@ -33,7 +34,7 @@ class HomeController extends Controller
 
     public function murid()
     {
-        return view('murid.dashboard');
+        return Inertia::render('Murid/Dashboard');
     }
 
     public function admin()
