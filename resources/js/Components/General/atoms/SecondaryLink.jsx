@@ -16,7 +16,7 @@ export default function SecondaryLink({
             className={
                 `w-${
                     full ? "full" : "fit"
-                } rounded-full bg-white py-1.5 px-5 font-semibold text-primary-100 text-base border-2 border-primary-100 hover:bg-gray-200` +
+                } rounded-full bg-white py-1.5 px-5 font-semibold text-primary-100 text-base border-2 border-primary-100 hover:bg-gray-200 block text-center` +
                 className
             }
         >

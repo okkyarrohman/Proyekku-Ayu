@@ -5,9 +5,9 @@ import Sidebar from "@/Components/General/molecules/Sidebar";
 export default function AuthenticatedLayout({ authUser, children }) {
     return (
         <main className="relative">
-            <Navbar />
+            <Navbar authUser={authUser} />
             <Sidebar authUser={authUser} />
-            <section className="ml-64 mt-20">
+            <section className="lg:ml-56 ml-0 mt-20 px-6">
                 <div className="mb-6">
                     <Title
                         title="Dashboard"
