@@ -15,6 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('photo')->nullable();
+            $table->unsignedBigInteger('class_id')->nullable();
+            $table->string('nip')->nullable();
             $table->enum('role', ['murid', 'guru', 'admin']);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
@@ -22,6 +25,8 @@ return new class extends Migration
             $table->string('session_login_at')->nullable();
             $table->integer('total_login')->nullable();
             $table->timestamps();
+
+            $table->foreign('class_id')->references('id')->on('classes');
         });
     }
 

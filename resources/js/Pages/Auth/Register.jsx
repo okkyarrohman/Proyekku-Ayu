@@ -1,125 +1,105 @@
-import { useEffect } from "react";
-import GuestLayout from "@/Layouts/GuestLayout";
-import InputError from "@/Components/Inertia/InputError";
-import InputLabel from "@/Components/Inertia/InputLabel";
-import PrimaryButton from "@/Components/Inertia/PrimaryButton";
-import TextInput from "@/Components/Inertia/TextInput";
-import { Head, Link, useForm } from "@inertiajs/react";
+import DropdownItem from "@/Components/General/atoms/DropdownItem";
+import SecondaryButton from "@/Components/General/atoms/SecondaryButton";
+import DropdownField from "@/Components/General/molecules/DropdownField";
+import InputEmailField from "@/Components/General/molecules/InputEmailField";
+import InputFileField from "@/Components/General/molecules/InputFileField";
+import InputPasswordField from "@/Components/General/molecules/InputPasswordField";
+import InputTextField from "@/Components/General/molecules/InputTextField";
+import RegisterCard from "@/Components/Register/molecules/RegisterCard";
+import { useForm, usePage } from "@inertiajs/react";
 
 export default function Register() {
-    const { data, setData, post, processing, errors, reset } = useForm({
+    const { classes } = usePage().props;
+
+    const { data, setData, post, errors } = useForm({
         name: "",
+        class_id: "",
         email: "",
         password: "",
         password_confirmation: "",
+        photo: null,
     });
 
-    useEffect(() => {
-        return () => {
-            reset("password", "password_confirmation");
-        };
-    }, []);
-
-    const submit = (e) => {
+    const handleOnSubmit = (e) => {
         e.preventDefault();
-
         post(route("register"));
     };
 
     return (
-        <GuestLayout>
-            <Head title="Register" />
-
-            <form onSubmit={submit}>
-                <div>
-                    <InputLabel htmlFor="name" value="Name" />
-
-                    <TextInput
-                        id="name"
+        <section className="flex justify-center items-center min-h-screen">
+            <RegisterCard>
+                <form onSubmit={handleOnSubmit} className="space-y-6">
+                    <InputTextField
+                        autoFocus
+                        label="Nama"
                         name="name"
+                        placeholder="Nama"
                         value={data.name}
-                        className="mt-1 block w-full"
-                        autoComplete="name"
-                        isFocused={true}
                         onChange={(e) => setData("name", e.target.value)}
-                        required
+                        error={errors.name}
                     />
-
-                    <InputError message={errors.name} className="mt-2" />
-                </div>
-
-                <div className="mt-4">
-                    <InputLabel htmlFor="email" value="Email" />
-
-                    <TextInput
-                        id="email"
-                        type="email"
+                    <DropdownField
+                        label="Kelas"
+                        name="class_id"
+                        placeholder="Kelas"
+                        value={
+                            classes.find(
+                                (classItem) => classItem.id === data.class_id
+                            )?.name
+                        }
+                        error={errors.class_id}
+                    >
+                        {classes.map((classItem) => {
+                            return (
+                                <DropdownItem
+                                    option={classItem.name}
+                                    onClick={() =>
+                                        setData("class_id", classItem.id)
+                                    }
+                                />
+                            );
+                        })}
+                    </DropdownField>
+                    <InputEmailField
+                        label="Email"
                         name="email"
+                        placeholder="Email"
                         value={data.email}
-                        className="mt-1 block w-full"
-                        autoComplete="username"
                         onChange={(e) => setData("email", e.target.value)}
-                        required
+                        error={errors.email}
                     />
-
-                    <InputError message={errors.email} className="mt-2" />
-                </div>
-
-                <div className="mt-4">
-                    <InputLabel htmlFor="password" value="Password" />
-
-                    <TextInput
-                        id="password"
-                        type="password"
+                    <InputPasswordField
+                        label="Password"
                         name="password"
+                        placeholder="Password"
                         value={data.password}
-                        className="mt-1 block w-full"
-                        autoComplete="new-password"
                         onChange={(e) => setData("password", e.target.value)}
-                        required
+                        error={errors.password}
                     />
-
-                    <InputError message={errors.password} className="mt-2" />
-                </div>
-
-                <div className="mt-4">
-                    <InputLabel
-                        htmlFor="password_confirmation"
-                        value="Confirm Password"
-                    />
-
-                    <TextInput
-                        id="password_confirmation"
-                        type="password"
+                    <InputPasswordField
+                        label="Konfirmasi Password"
                         name="password_confirmation"
+                        placeholder="Konfirmasi Password"
                         value={data.password_confirmation}
-                        className="mt-1 block w-full"
-                        autoComplete="new-password"
                         onChange={(e) =>
                             setData("password_confirmation", e.target.value)
                         }
-                        required
+                        error={errors.password_confirmation}
                     />
-
-                    <InputError
-                        message={errors.password_confirmation}
-                        className="mt-2"
+                    <InputFileField
+                        label="Foto"
+                        name="photo"
+                        placeholder="Unggah Foto"
+                        fileType="image/*"
+                        value={data.photo?.name}
+                        onChange={(e) => setData("photo", e.target.files[0])}
+                        error={errors.photo}
                     />
-                </div>
-
-                <div className="flex items-center justify-end mt-4">
-                    <Link
-                        href={route("login")}
-                        className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                    >
-                        Already registered?
-                    </Link>
-
-                    <PrimaryButton className="ms-4" disabled={processing}>
-                        Register
-                    </PrimaryButton>
-                </div>
-            </form>
-        </GuestLayout>
+                    <div className="mx-auto w-fit">
+                        <SecondaryButton type="submit" text="Registrasi" />
+                    </div>
+                </form>
+            </RegisterCard>
+        </section>
     );
 }

@@ -32,6 +32,14 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+// Route Admin
+Route::group(['middleware' => 'role:admin'], function () {
+    Route::prefix('admin')->group(function () {
+        // Start Your admin Routes From Here
+        Route::get('/dashboard', [HomeController::class, 'admin'])->name('dashboard.admin');
+    });
+});
+
 // Route Guru
 Route::group(['middleware' => 'role:guru'], function () {
     Route::prefix('guru')->group(function () {
