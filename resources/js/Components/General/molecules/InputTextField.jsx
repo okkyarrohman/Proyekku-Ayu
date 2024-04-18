@@ -4,6 +4,7 @@ import TextInput from "../atoms/TextInput";
 
 export default function InputTextField({
     label,
+    color,
     name,
     onChange,
     value,
@@ -15,7 +16,7 @@ export default function InputTextField({
     return (
         <div className="grid grid-cols-6 items-center">
             <div className="col-span-2">
-                <Label htmlFor={name} text={label} />
+                <Label htmlFor={name} text={label} color={color} />
             </div>
             <div className="col-span-4">
                 <TextInput

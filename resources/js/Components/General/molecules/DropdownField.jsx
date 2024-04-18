@@ -5,6 +5,7 @@ import DropdownInput from "../atoms/DropdownInput";
 
 export default function DropdownField({
     label,
+    color,
     name,
     value,
     autoFocus = false,
@@ -16,7 +17,7 @@ export default function DropdownField({
     return (
         <div className="grid grid-cols-6 items-center">
             <div className="col-span-2">
-                <Label htmlFor={name} text={label} />
+                <Label htmlFor={name} text={label} color={color} />
             </div>
             <div className="col-span-4">
                 <DropdownInput

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Guru;
 
 use App\Http\Controllers\Controller;
+use App\Models\MataPelajaran;
 use App\Models\Materi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -25,7 +26,9 @@ class MateriGuruController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Guru/RuangProyek/Materi/MateriCreate');
+        $mapels = MataPelajaran::all();
+
+        return Inertia::render('Guru/RuangProyek/Materi/MateriCreate', compact('mapels'));
     }
 
     /**
@@ -76,7 +79,9 @@ class MateriGuruController extends Controller
     {
         $materis = Materi::where('id', $id)->first();
 
-        return Inertia::render('Guru/RuangProyek/Materi/MateriEdit', compact('materis'));
+        $mapels = MataPelajaran::all();
+
+        return Inertia::render('Guru/RuangProyek/Materi/MateriEdit', compact('materis', 'mapels'));
     }
 
     /**
