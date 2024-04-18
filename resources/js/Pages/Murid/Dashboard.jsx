@@ -8,5 +8,10 @@ import { Icon } from "@iconify/react";
 import { usePage } from "@inertiajs/react";
 
 export default function Dashboard({ auth }) {
-    return <AuthenticatedLayout authUser={auth.user}></AuthenticatedLayout>;
+    return (
+        <AuthenticatedLayout
+            authUser={auth.user}
+            title="Dashboard"
+        ></AuthenticatedLayout>
+    );
 }

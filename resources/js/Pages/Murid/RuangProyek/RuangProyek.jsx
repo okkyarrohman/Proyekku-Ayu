@@ -13,7 +13,7 @@ export default function RuangProyek({ auth }) {
     ];
 
     return (
-        <AuthenticatedLayout authUser={auth.user}>
+        <AuthenticatedLayout authUser={auth.user} title="Ruang Proyek">
             <section className="grid lg:grid-cols-2 grid-cols-1 lg:gap-16 gap-8">
                 {menuItems.map((menu, index) => {
                     return (
