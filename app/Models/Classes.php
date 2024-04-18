@@ -14,4 +14,8 @@ class Classes extends Model
     protected $fillable = [
         'name'
     ];
+
+    public function mapels() {
+        return $this->hasMany(MataPelajaran::class, 'class_id', 'id');
+    }
 }

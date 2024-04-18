@@ -13,13 +13,18 @@ export default function DropdownField({
     placeholder,
     children,
     error,
+    hideLabel = false,
 }) {
     return (
-        <div className="grid grid-cols-6 items-center">
-            <div className="col-span-2">
+        <div
+            className={`grid ${
+                hideLabel ? "grid-cols-3" : "grid-cols-6"
+            } items-center`}
+        >
+            <div className={`col-span-2 ${hideLabel && "hidden"}`}>
                 <Label htmlFor={name} text={label} color={color} />
             </div>
-            <div className="col-span-4">
+            <div className={`${hideLabel ? "col-span-3" : "col-span-4"}`}>
                 <DropdownInput
                     value={value}
                     placeholder={placeholder}

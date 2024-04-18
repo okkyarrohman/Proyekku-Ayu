@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Murid;
 
 use App\Http\Controllers\Controller;
+use App\Models\MataPelajaran;
 use App\Models\Materi;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -16,7 +17,9 @@ class MateriMuridController extends Controller
     {
         $materis = Materi::all();
 
-        return Inertia::render('Murid/RuangProyek/Materi/MateriIndex', compact('materis'));
+        $mapels = MataPelajaran::all();
+
+        return Inertia::render('Murid/RuangProyek/Materi/MateriIndex', compact('materis', 'mapels'));
     }
 
     /**

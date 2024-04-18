@@ -19,4 +19,8 @@ class Materi extends Model
         'link_video',
         'mapel_id'
     ];
+
+    public function mapels() {
+        return $this->belongsTo(MataPelajaran::class, 'mapel_id', 'id');
+    }
 }

@@ -13,7 +13,7 @@ export default function DropdownItem({ option, onClick }) {
     return (
         <li
             onClick={handleOptionOnClick}
-            className="bg-white px-4 w-full min-h-10 border flex items-center"
+            className="bg-white px-4 w-full min-h-10 border flex items-center cursor-pointer"
         >
             {option}
         </li>

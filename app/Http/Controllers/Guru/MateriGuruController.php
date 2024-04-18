@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Guru;
 
 use App\Http\Controllers\Controller;
+use App\Models\Classes;
 use App\Models\MataPelajaran;
 use App\Models\Materi;
 use Illuminate\Http\Request;
@@ -16,9 +17,13 @@ class MateriGuruController extends Controller
      */
     public function index()
     {
-        $materis = Materi::all();
+        $materis = Materi::with(['mapels.classes'])->get();
 
-        return Inertia::render('Guru/RuangProyek/Materi/MateriIndex', compact('materis'));
+        $classes = Classes::all();
+
+        $mapels = MataPelajaran::all();
+
+        return Inertia::render('Guru/RuangProyek/Materi/MateriIndex', compact('materis', 'classes', 'mapels'));
     }
 
     /**
