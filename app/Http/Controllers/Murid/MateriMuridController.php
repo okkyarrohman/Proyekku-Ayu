@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Murid;
 
 use App\Http\Controllers\Controller;
+use App\Models\Materi;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -13,7 +14,9 @@ class MateriMuridController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Murid/RuangProyek/Materi/MateriIndex');
+        $materis = Materi::all();
+
+        return Inertia::render('Murid/RuangProyek/Materi/MateriIndex', compact('materis'));
     }
 
     /**
@@ -21,7 +24,7 @@ class MateriMuridController extends Controller
      */
     public function create()
     {
-        return view('murid.materi.create');
+        //
     }
 
     /**
@@ -29,7 +32,7 @@ class MateriMuridController extends Controller
      */
     public function store(Request $request)
     {
-        return redirect()->route('materi.index')->with('success', 'Data Berhasil Ditambahkan');
+        //
     }
 
     /**
@@ -37,7 +40,9 @@ class MateriMuridController extends Controller
      */
     public function show(string $id)
     {
-        return view('murid.materi.show');
+        $materis = Materi::where('id', $id)->first();
+
+        return Inertia::render('Murid/RuangProyek/Materi/MateriShow', compact('materis'));
     }
 
     /**
@@ -45,7 +50,7 @@ class MateriMuridController extends Controller
      */
     public function edit(string $id)
     {
-        return view('murid.materi.edit');
+        //
     }
 
     /**
@@ -53,7 +58,7 @@ class MateriMuridController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        return redirect()->route('materi.index')->with('success', 'Data Berhasil Diupdate');
+        //
     }
 
     /**
@@ -61,6 +66,6 @@ class MateriMuridController extends Controller
      */
     public function destroy(string $id)
     {
-        return redirect()->route('materi.index')->with('success', 'Data Berhasil Dihapus');
+        //
     }
 }

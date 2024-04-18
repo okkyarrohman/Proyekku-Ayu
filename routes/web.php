@@ -45,6 +45,7 @@ Route::group(['middleware' => 'role:guru'], function () {
     Route::prefix('guru')->group(function () {
         // Start Your guru Routes From Here
         Route::get('/dashboard', [HomeController::class, 'guru'])->name('dashboard.guru');
+        Route::inertia('/ruang-proyek', 'Guru/RuangProyek/RuangProyek')->name('ruangProyek.guru');
         Route::resources([
             'materi-guru' => MateriGuruController::class,
             'tugas-guru' => TugasGuruController::class,
