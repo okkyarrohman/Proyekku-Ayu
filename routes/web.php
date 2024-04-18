@@ -57,11 +57,15 @@ Route::group(['middleware' => 'role:murid'], function () {
     Route::prefix('murid')->group(function () {
         // Start Your murid Routes From Here
         Route::get('/dashboard', [HomeController::class, 'murid'])->name('dashboard.murid');
-
-        Route::resources([
-            'materi' => MateriMuridController::class,
-            'tugas' => TugasMuridController::class,
-        ]);
+        Route::inertia('/ruang-proyek', 'Murid/RuangProyek/RuangProyek')->name('ruangProyek.murid');
+        Route::prefix('ruang-proyek')->group(function () {
+            Route::resources([
+                'materi' => MateriMuridController::class,
+                'tugas' => TugasMuridController::class,
+            ]);
+        });
+        Route::inertia('/laporan', 'Murid/Laporan/Laporan')->name('laporan.murid');
+        Route::inertia('/pengaturan', 'Pengaturan/Pengaturan')->name('pengaturan.murid');
     });
 });
 

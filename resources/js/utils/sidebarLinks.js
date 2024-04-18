@@ -7,21 +7,21 @@ export const muridSidebarItems = [
     },
     {
         name: "Ruang Proyek",
-        link: "#",
+        link: route("ruangProyek.murid"),
         icon: "ic:baseline-task",
-        url: "#",
+        url: "/murid/ruang-proyek",
     },
     {
         name: "Laporan",
-        link: "#",
+        link: route("laporan.murid"),
         icon: "streamline:graph-bar-increase-solid",
-        url: "#",
+        url: "/murid/laporan",
     },
     {
         name: "Pengaturan",
-        link: "#",
+        link: route("pengaturan.murid"),
         icon: "fa6-solid:gear",
-        url: "#",
+        url: "/murid/pengaturan",
     },
 ];
 

@@ -32,6 +32,7 @@ export default function Sidebar({ authUser }) {
                                 key={index}
                                 text={sidebarItem.name}
                                 icon={sidebarItem.icon}
+                                href={sidebarItem.link}
                                 active={url.startsWith(sidebarItem.url)}
                             />
                         );

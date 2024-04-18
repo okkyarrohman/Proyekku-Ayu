@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Murid;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class MateriMuridController extends Controller
 {
@@ -12,7 +13,7 @@ class MateriMuridController extends Controller
      */
     public function index()
     {
-        return view('murid.materi.index');
+        return Inertia::render('Murid/RuangProyek/Materi/MateriIndex');
     }
 
     /**
