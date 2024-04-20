@@ -31,9 +31,9 @@ class UserAdminController extends Controller
         $classes = Classes::all();
 
         if ($role == 'guru') {
-            return Inertia::render('Admin/DataMaster/DataMasterGuru/DataMasterGuruIndex', compact('users', 'classes'));
+            return Inertia::render('Admin/DataMaster/User/UserIndexGuru', compact('users', 'classes'));
         } else {
-            return Inertia::render('Admin/DataMaster/DataMasterMurid/DataMasterMuridIndex', compact('users', 'classes'));
+            return Inertia::render('Admin/DataMaster/User/UserIndexMurid', compact('users', 'classes'));
         };
     }
 

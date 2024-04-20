@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\MataPelajaranAdminController;
 use App\Http\Controllers\Admin\UserAdminController;
 use App\Http\Controllers\Guru\MateriGuruController;
 use App\Http\Controllers\Guru\TugasGuruController;
@@ -40,16 +41,21 @@ Route::group(['middleware' => 'role:admin'], function () {
         Route::get('/dashboard', [HomeController::class, 'admin'])->name('dashboard.admin');
         Route::inertia('/data-master', 'Admin/DataMaster/DataMaster')->name('dataMaster.admin');
         Route::prefix('data-master')->group(function () {
-            Route::inertia('/user-admin/add', 'Admin/DataMaster/User/UserAdd')->name('user-admin.add');
-            Route::get('/user-admin/{role}', [UserAdminController::class, 'index'])->name('user-admin.index');
-            Route::get('/user-admin/{role}/create', [UserAdminController::class, 'create'])->name('user-admin.create');
-            Route::post('/user-admin/guru/create', [UserAdminController::class, 'storeGuru'])->name('user-admin.storeGuru');
-            Route::post('/user-admin/murid/create', [UserAdminController::class, 'storeMurid'])->name('user-admin.storeMurid');
-            Route::get('/user-admin/{role}/edit/{id}', [UserAdminController::class, 'edit'])->name('user-admin.edit');
-            Route::patch('/user-admin/guru/edit/{id}', [UserAdminController::class, 'updateGuru'])->name('user-admin.updateGuru');
-            Route::patch('/user-admin/murid/edit/{id}', [UserAdminController::class, 'updateMurid'])->name('user-admin.updateMurid');
-            Route::get('/user-admin/{role}/show/{id}', [UserAdminController::class, 'show'])->name('user-admin.show');
-            Route::delete('/user-admin/{role}/delete/{id}', [UserAdminController::class, 'destroy'])->name('user-admin.destroy');
+            Route::prefix('user-admin')->group(function () {
+                Route::inertia('/add', 'Admin/DataMaster/User/UserAdd')->name('user-admin.add');
+                Route::get('/{role}', [UserAdminController::class, 'index'])->name('user-admin.index');
+                Route::get('/{role}/create', [UserAdminController::class, 'create'])->name('user-admin.create');
+                Route::post('/guru/create', [UserAdminController::class, 'storeGuru'])->name('user-admin.storeGuru');
+                Route::post('/murid/create', [UserAdminController::class, 'storeMurid'])->name('user-admin.storeMurid');
+                Route::get('/{role}/edit/{id}', [UserAdminController::class, 'edit'])->name('user-admin.edit');
+                Route::patch('/guru/edit/{id}', [UserAdminController::class, 'updateGuru'])->name('user-admin.updateGuru');
+                Route::patch('/murid/edit/{id}', [UserAdminController::class, 'updateMurid'])->name('user-admin.updateMurid');
+                Route::get('/{role}/show/{id}', [UserAdminController::class, 'show'])->name('user-admin.show');
+                Route::delete('/{role}/delete/{id}', [UserAdminController::class, 'destroy'])->name('user-admin.destroy');
+            });
+            Route::resources([
+                'mapel-admin' => MataPelajaranAdminController::class,
+            ]);
         });
     });
 });

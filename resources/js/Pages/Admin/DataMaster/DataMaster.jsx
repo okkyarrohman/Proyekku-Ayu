@@ -20,7 +20,7 @@ export default function DataMaster({ auth }) {
         },
         {
             title: "Tambah Mata Pelajaran",
-            link: "",
+            link: route("mapel-admin.index"),
             icon: "mdi:archive-add",
         },
     ];

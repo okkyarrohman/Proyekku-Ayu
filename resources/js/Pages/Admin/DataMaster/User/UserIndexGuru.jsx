@@ -1,3 +1,4 @@
+import FilterLabel from "@/Components/General/atoms/FilterLabel";
 import PrimaryButton from "@/Components/General/atoms/PrimaryButton";
 import TableActionButton from "@/Components/General/atoms/TableActionButton";
 import TableBody from "@/Components/General/atoms/TableBody";
@@ -13,7 +14,7 @@ import { formatLoginTime } from "@/utils/formatLoginTime";
 import { router, usePage } from "@inertiajs/react";
 import { useEffect, useState } from "react";
 
-export default function DataMasterGuruIndex({ auth }) {
+export default function UserIndexGuru({ auth }) {
     const { users } = usePage().props;
 
     const [search, setSearch] = useState({
@@ -48,11 +49,14 @@ export default function DataMasterGuruIndex({ auth }) {
 
     return (
         <AuthenticatedLayout authUser={auth.user} title="Data Master Guru">
-            <div className="flex items-center justify-end mb-6">
+            <div className="flex items-center justify-end gap-5 mb-6">
+                <FilterLabel label="Nama" />
                 <InputTextField
+                    hideLabel
                     color="text-black"
                     label="Search"
                     name="searchName"
+                    placeholder="Cari Data"
                     value={search.searchName}
                     onChange={(e) =>
                         setSearch({ ...search, searchName: e.target.value })

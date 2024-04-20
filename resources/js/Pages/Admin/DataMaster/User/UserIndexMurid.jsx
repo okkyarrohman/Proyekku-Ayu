@@ -16,7 +16,7 @@ import { formatLoginTime } from "@/utils/formatLoginTime";
 import { router, usePage } from "@inertiajs/react";
 import { useEffect, useState } from "react";
 
-export default function DataMasterMuridIndex({ auth }) {
+export default function UserIndexMurid({ auth }) {
     const { users, classes } = usePage().props;
 
     const [search, setSearch] = useState({

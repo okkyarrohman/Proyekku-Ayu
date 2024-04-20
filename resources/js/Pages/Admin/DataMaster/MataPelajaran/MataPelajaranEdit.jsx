@@ -6,23 +6,24 @@ import CreateTemplate from "@/Components/General/template/CreateTemplate";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { useForm, usePage } from "@inertiajs/react";
 
-export default function MataPelajaranCreate({ auth }) {
-    const { classes, users } = usePage().props;
+export default function MataPelajaranEdit({ auth }) {
+    const { mapels, classes, users } = usePage().props;
 
     const { data, setData, post, errors } = useForm({
-        name: "",
-        class_id: "",
-        guru_id: "",
+        _method: "PATCH",
+        name: mapels.name,
+        class_id: mapels.class_id,
+        guru_id: mapels.guru_id,
     });
 
     const handleOnSubmit = (e) => {
         e.preventDefault();
-        post(route("mapel-admin.store"));
+        post(route("mapel-admin.update", mapels.id));
     };
 
     return (
-        <AuthenticatedLayout authUser={auth.user} title="Add Mata Pelajaran">
-            <CreateTemplate title="TAMBAH MATA PELAJARAN">
+        <AuthenticatedLayout authUser={auth.user} title="Edit Mata Pelajaran">
+            <CreateTemplate title="EDIT MATA PELAJARAN">
                 <form onSubmit={handleOnSubmit} className="space-y-6">
                     <InputTextField
                         autoFocus
