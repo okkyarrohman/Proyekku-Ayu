@@ -25,18 +25,32 @@ export default function DataMasterMuridIndex({ auth }) {
     });
 
     const handleSearchOnClick = () => {
-        router.get(route("user-admin.index", "murid"), {
-            searchName: search.searchName,
-            searchClass: search.searchClass,
-        });
+        router.get(
+            route("user-admin.index", "murid"),
+            {
+                searchName: search.searchName,
+                searchClass: search.searchClass,
+            },
+            {
+                preserveState: true,
+                replace: true,
+            }
+        );
     };
 
     const handleSearchInputEnter = (e) => {
         if (e.key === "Enter") {
-            router.get(route("user-admin.index", "murid"), {
-                searchName: search.searchName,
-                searchClass: search.searchClass,
-            });
+            router.get(
+                route("user-admin.index", "murid"),
+                {
+                    searchName: search.searchName,
+                    searchClass: search.searchClass,
+                },
+                {
+                    preserveState: true,
+                    replace: true,
+                }
+            );
         }
     };
 

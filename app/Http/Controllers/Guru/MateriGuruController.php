@@ -15,9 +15,23 @@ class MateriGuruController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $materis = Materi::with(['mapels.classes'])->get();
+        $searchMapel = $request->input('searchMapel');
+        $searchClass = $request->input('searchClass');
+
+        // $materis = Materi::with(['mapels.classes'])->get();
+
+        $materis = Materi::with(['mapels.classes'])
+            ->when($searchMapel, function ($query) use ($searchMapel) {
+                $query->where('mapel_id', 'like', '%' . $searchMapel . '%');
+            })
+            ->when($searchClass, function ($query) use ($searchClass) {
+                $query->whereHas('mapels', function ($subQuery) use ($searchClass) {
+                    $subQuery->where('class_id', 'like', '%' . $searchClass . '%');
+                });
+            })
+            ->get();
 
         $classes = Classes::all();
 

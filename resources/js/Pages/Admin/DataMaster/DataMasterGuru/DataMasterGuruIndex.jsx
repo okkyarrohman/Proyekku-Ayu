@@ -16,11 +16,20 @@ import { useEffect, useState } from "react";
 export default function DataMasterGuruIndex({ auth }) {
     const { users } = usePage().props;
 
-    const [search, setSearch] = useState("");
+    const [search, setSearch] = useState({
+        searchName: "",
+    });
 
     const handleSearch = (e) => {
         if (e.key === "Enter") {
-            router.get(route("user-admin.index", "guru"), { search: search });
+            router.get(
+                route("user-admin.index", "guru"),
+                { searchName: search.searchName },
+                {
+                    preserveState: true,
+                    replace: true,
+                }
+            );
         }
     };
 
@@ -43,9 +52,11 @@ export default function DataMasterGuruIndex({ auth }) {
                 <InputTextField
                     color="text-black"
                     label="Search"
-                    name="search"
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
+                    name="searchName"
+                    value={search.searchName}
+                    onChange={(e) =>
+                        setSearch({ ...search, searchName: e.target.value })
+                    }
                     onKeyDown={handleSearch}
                 />
             </div>

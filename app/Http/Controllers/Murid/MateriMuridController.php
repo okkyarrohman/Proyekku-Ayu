@@ -13,9 +13,16 @@ class MateriMuridController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $materis = Materi::all();
+        $searchMapel = $request->input('searchMapel');
+
+        // $materis = Materi::all();
+        $materis = Materi::with(['mapels'])
+            ->when($searchMapel, function ($query) use ($searchMapel) {
+                $query->where('mapel_id', 'like', '%' . $searchMapel . '%');
+            })
+            ->get();
 
         $mapels = MataPelajaran::all();
 
