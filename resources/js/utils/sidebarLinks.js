@@ -34,9 +34,9 @@ export const guruSidebarItems = [
     },
     {
         name: "Ruang Proyek",
-        link: "#",
+        link: route("ruangProyek.guru"),
         icon: "ic:baseline-task",
-        url: "#",
+        url: "/guru/ruang-proyek",
     },
     {
         name: "Laporan",
@@ -61,9 +61,9 @@ export const adminSidebarItems = [
     },
     {
         name: "Data Master",
-        link: "#",
+        link: route("dataMaster.admin"),
         icon: "gravity-ui:database-fill",
-        url: "#",
+        url: "/admin/data-master",
     },
     {
         name: "Pengaturan",

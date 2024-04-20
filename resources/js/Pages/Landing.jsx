@@ -9,6 +9,8 @@ import LandingTemplate from "@/Components/Landing/template/LandingTemplate";
 import { featureItems, aboutItems } from "@/utils/landingDatas";
 
 export default function Landing({ auth }) {
+    console.log(auth);
+
     return (
         <LandingTemplate authUser={auth.user}>
             <Hero

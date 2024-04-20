@@ -7,7 +7,6 @@ import {
     adminSidebarItems,
     muridSidebarItems,
 } from "@/utils/sidebarLinks";
-import ApplicationLogo from "@/Components/Landing/molecules/ApplicationLogo";
 import NavbarProfile from "../atoms/NavbarProfile";
 
 export default function Navbar({ authUser }) {

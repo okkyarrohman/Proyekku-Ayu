@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\MataPelajaranAdminController;
+use App\Http\Controllers\Admin\UserAdminController;
 use App\Http\Controllers\Guru\MateriGuruController;
 use App\Http\Controllers\Guru\TugasGuruController;
 use App\Http\Controllers\HomeController;
@@ -37,6 +39,24 @@ Route::group(['middleware' => 'role:admin'], function () {
     Route::prefix('admin')->group(function () {
         // Start Your admin Routes From Here
         Route::get('/dashboard', [HomeController::class, 'admin'])->name('dashboard.admin');
+        Route::inertia('/data-master', 'Admin/DataMaster/DataMaster')->name('dataMaster.admin');
+        Route::prefix('data-master')->group(function () {
+            Route::prefix('user-admin')->group(function () {
+                Route::inertia('/add', 'Admin/DataMaster/User/UserAdd')->name('user-admin.add');
+                Route::get('/{role}', [UserAdminController::class, 'index'])->name('user-admin.index');
+                Route::get('/{role}/create', [UserAdminController::class, 'create'])->name('user-admin.create');
+                Route::post('/guru/create', [UserAdminController::class, 'storeGuru'])->name('user-admin.storeGuru');
+                Route::post('/murid/create', [UserAdminController::class, 'storeMurid'])->name('user-admin.storeMurid');
+                Route::get('/{role}/edit/{id}', [UserAdminController::class, 'edit'])->name('user-admin.edit');
+                Route::patch('/guru/edit/{id}', [UserAdminController::class, 'updateGuru'])->name('user-admin.updateGuru');
+                Route::patch('/murid/edit/{id}', [UserAdminController::class, 'updateMurid'])->name('user-admin.updateMurid');
+                Route::get('/{role}/show/{id}', [UserAdminController::class, 'show'])->name('user-admin.show');
+                Route::delete('/{role}/delete/{id}', [UserAdminController::class, 'destroy'])->name('user-admin.destroy');
+            });
+            Route::resources([
+                'mapel-admin' => MataPelajaranAdminController::class,
+            ]);
+        });
     });
 });
 
@@ -45,10 +65,13 @@ Route::group(['middleware' => 'role:guru'], function () {
     Route::prefix('guru')->group(function () {
         // Start Your guru Routes From Here
         Route::get('/dashboard', [HomeController::class, 'guru'])->name('dashboard.guru');
-        Route::resources([
-            'materi-guru' => MateriGuruController::class,
-            'tugas-guru' => TugasGuruController::class,
-        ]);
+        Route::inertia('/ruang-proyek', 'Guru/RuangProyek/RuangProyek')->name('ruangProyek.guru');
+        Route::prefix('ruang-proyek')->group(function () {
+            Route::resources([
+                'materi-guru' => MateriGuruController::class,
+                'tugas-guru' => TugasGuruController::class,
+            ]);
+        });
     });
 });
 

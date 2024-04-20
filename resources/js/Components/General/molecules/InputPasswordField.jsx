@@ -4,6 +4,7 @@ import TextInput from "../atoms/TextInput";
 import PasswordInput from "../atoms/PasswordInput";
 
 export default function InputPasswordField({
+    color,
     label,
     name,
     onChange,
@@ -16,7 +17,7 @@ export default function InputPasswordField({
     return (
         <div className="grid grid-cols-6 items-center">
             <div className="col-span-2">
-                <Label htmlFor={name} text={label} />
+                <Label htmlFor={name} text={label} color={color} />
             </div>
             <div className="col-span-4">
                 <PasswordInput

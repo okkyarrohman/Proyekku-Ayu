@@ -16,4 +16,12 @@ class MataPelajaran extends Model
         'class_id',
         'guru_id',
     ];
+
+    public function classes() {
+        return $this->belongsTo(Classes::class, 'class_id', 'id');
+    }
+
+    public function materis() {
+        return $this->hasMany(Materi::class, 'mapel_id', 'id');
+    }
 }

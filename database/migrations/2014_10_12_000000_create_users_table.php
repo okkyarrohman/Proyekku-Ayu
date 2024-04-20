@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->string('session_login_at')->nullable();
-            $table->integer('total_login')->nullable();
+            $table->integer('total_login_time')->nullable();
             $table->timestamps();
 
             $table->foreign('class_id')->references('id')->on('classes');

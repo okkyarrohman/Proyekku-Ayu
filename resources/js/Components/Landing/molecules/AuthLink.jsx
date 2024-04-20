@@ -10,7 +10,7 @@ export default function AuthLink({ authUser }) {
                     href={
                         authUser.role == "guru"
                             ? route("dashboard.guru")
-                            : authUser == "admin"
+                            : authUser.role == "admin"
                             ? route("dashboard.admin")
                             : route("dashboard.murid")
                     }

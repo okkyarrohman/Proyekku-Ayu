@@ -29,7 +29,7 @@ class HomeController extends Controller
 
     public function guru()
     {
-        return view('guru.dashboard');
+        return Inertia::render('Guru/Dashboard');
     }
 
     public function murid()
@@ -39,6 +39,6 @@ class HomeController extends Controller
 
     public function admin()
     {
-        return view('guru.dashboard');
+        return Inertia::render('Admin/Dashboard');
     }
 }
