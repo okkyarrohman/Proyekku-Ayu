@@ -3,6 +3,7 @@ import Label from "../atoms/Label";
 import EmailInput from "../atoms/EmailInput";
 
 export default function InputEmailField({
+    color,
     label,
     name,
     onChange,
@@ -15,7 +16,7 @@ export default function InputEmailField({
     return (
         <div className="grid grid-cols-6 items-center">
             <div className="col-span-2">
-                <Label htmlFor={name} text={label} />
+                <Label htmlFor={name} text={label} color={color} />
             </div>
             <div className="col-span-4">
                 <EmailInput

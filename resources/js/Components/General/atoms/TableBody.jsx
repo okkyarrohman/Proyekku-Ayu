@@ -1,3 +1,3 @@
 export default function TableBody({ children }) {
-    return <tbody>{children}</tbody>;
+    return <tbody className="bg-white">{children}</tbody>;
 }

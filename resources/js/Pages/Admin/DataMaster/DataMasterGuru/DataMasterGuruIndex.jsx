@@ -82,8 +82,30 @@ export default function DataMasterGuruIndex({ auth }) {
                                             : formatLoginTime(0)
                                     }
                                 />
-                                <TableData children={<TableActionButton />} />
-                                <TableData children={<TableShowButton />} />
+                                <TableData
+                                    children={
+                                        <TableActionButton
+                                            linkEdit={route("user-admin.edit", [
+                                                "guru",
+                                                user.id,
+                                            ])}
+                                            linkDelete={route(
+                                                "user-admin.destroy",
+                                                ["guru", user.id]
+                                            )}
+                                        />
+                                    }
+                                />
+                                <TableData
+                                    children={
+                                        <TableShowButton
+                                            linkShow={route("user-admin.show", [
+                                                "guru",
+                                                user.id,
+                                            ])}
+                                        />
+                                    }
+                                />
                             </TableRow>
                         );
                     })}

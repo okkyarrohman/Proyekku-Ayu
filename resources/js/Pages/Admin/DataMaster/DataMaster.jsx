@@ -13,7 +13,11 @@ export default function DataMaster({ auth }) {
             link: route("user-admin.index", "murid"),
             icon: "gravity-ui:database-fill",
         },
-        { title: "Tambah User", link: "", icon: "mingcute:user-add-2-fill" },
+        {
+            title: "Tambah User",
+            link: route("user-admin.add"),
+            icon: "mingcute:user-add-2-fill",
+        },
         {
             title: "Tambah Mata Pelajaran",
             link: "",

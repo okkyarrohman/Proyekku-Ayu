@@ -147,8 +147,30 @@ export default function DataMasterMuridIndex({ auth }) {
                                             : formatLoginTime(0)
                                     }
                                 />
-                                <TableData children={<TableActionButton />} />
-                                <TableData children={<TableShowButton />} />
+                                <TableData
+                                    children={
+                                        <TableActionButton
+                                            linkEdit={route("user-admin.edit", [
+                                                "murid",
+                                                user.id,
+                                            ])}
+                                            linkDelete={route(
+                                                "user-admin.destroy",
+                                                ["murid", user.id]
+                                            )}
+                                        />
+                                    }
+                                />
+                                <TableData
+                                    children={
+                                        <TableShowButton
+                                            linkShow={route("user-admin.show", [
+                                                "murid",
+                                                user.id,
+                                            ])}
+                                        />
+                                    }
+                                />
                             </TableRow>
                         );
                     })}

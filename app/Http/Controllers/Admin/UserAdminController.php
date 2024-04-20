@@ -39,10 +39,12 @@ class UserAdminController extends Controller
 
     public function create($role)
     {
+        $classes = Classes::all();
+
         if ($role == "guru") {
-            return Inertia::render('Admin/DataMaster/DataMasterGuruCreate');
+            return Inertia::render('Admin/DataMaster/User/UserCreateGuru');
         } else {
-            return Inertia::render('Admin/DataMaster/DataMasterMuridCreate');
+            return Inertia::render('Admin/DataMaster/User/UserCreateMurid', compact('classes'));
         }
     }
 
@@ -64,6 +66,8 @@ class UserAdminController extends Controller
             'password' => Hash::make($request->password)
         ]);
         $users->assignRole('murid');
+
+        return to_route('user-admin.index', 'murid');
     }
 
     public function storeGuru(Request $request)
@@ -84,27 +88,33 @@ class UserAdminController extends Controller
             'password' => Hash::make($request->password)
         ]);
         $users->assignRole('guru');
+
+        return to_route('user-admin.index', 'guru');
     }
 
-    public function show($id, $role)
+    public function show($role, $id)
     {
         $users = User::where('id', $id)->first();
 
+        $classes = Classes::all();
+
         if ($role == 'guru') {
-            return Inertia::render('Admin/DataMaster/DataMasterGuruShow', compact('users'));
+            return Inertia::render('Admin/DataMaster/User/UserShowGuru', compact('users'));
         } else {
-            return Inertia::render('Admin/DataMaster/DataMasterMuridShow', compact('users'));
+            return Inertia::render('Admin/DataMaster/User/UserShowMurid', compact('users', 'classes'));
         };
     }
 
-    public function edit($id, $role)
+    public function edit($role, $id)
     {
         $users = User::where('id', $id)->first();
 
+        $classes = Classes::all();
+
         if ($role == "guru") {
-            return Inertia::render('Admin/DataMaster/DataMasterGuruEdit', compact('users'));
+            return Inertia::render('Admin/DataMaster/User/UserEditGuru', compact('users'));
         } else {
-            return Inertia::render('Admin/DataMaster/DataMasterMuridEdit', compact('users'));
+            return Inertia::render('Admin/DataMaster/User/UserEditMurid', compact('users', 'classes'));
         }
     }
 
@@ -123,9 +133,16 @@ class UserAdminController extends Controller
             $fileName = $users->photo;
         }
 
-        $usersUpdate = $request->only(['name', 'class_id', 'role', 'photo', 'email', 'password']);
+        $usersUpdate = $request->only(['name', 'class_id', 'role', 'photo', 'email']);
+        $usersUpdate['photo'] = $fileName;
+
+        if (!empty($request->password)) {
+            $usersUpdate['password'] = $request->password;
+        }
 
         $users->update($usersUpdate);
+
+        return to_route('user-admin.index', 'murid');
     }
 
     public function updateGuru(Request $request, $id)
@@ -143,17 +160,30 @@ class UserAdminController extends Controller
             $fileName = $users->photo;
         }
 
-        $usersUpdate = $request->only(['name', 'nip', 'role', 'photo', 'email', 'password']);
+        $usersUpdate = $request->only(['name', 'nip', 'role', 'photo', 'email']);
+        $usersUpdate['photo'] = $fileName;
+
+        if (!empty($request->password)) {
+            $usersUpdate['password'] = $request->password;
+        }
 
         $users->update($usersUpdate);
+
+        return to_route('user-admin.index', 'guru');
     }
 
-    public function destroy($id)
+    public function destroy($role, $id)
     {
         $users = User::find($id);
 
         Storage::delete('public/user/photo/' . $users->file);
 
         $users->delete();
+
+        if ($role == "guru") {
+            return to_route('user-admin.index', 'guru');
+        } else {
+            return to_route('user-admin.index', 'murid');
+        }
     }
 }
