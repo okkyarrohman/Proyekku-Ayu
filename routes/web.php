@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\UserAdminController;
 use App\Http\Controllers\Guru\MateriGuruController;
 use App\Http\Controllers\Guru\TugasGuruController;
 use App\Http\Controllers\HomeController;
@@ -37,6 +38,10 @@ Route::group(['middleware' => 'role:admin'], function () {
     Route::prefix('admin')->group(function () {
         // Start Your admin Routes From Here
         Route::get('/dashboard', [HomeController::class, 'admin'])->name('dashboard.admin');
+        Route::inertia('/data-master', 'Admin/DataMaster/DataMaster')->name('dataMaster.admin');
+        Route::prefix('data-master')->group(function () {
+            Route::get('/user-admin/{role}', [UserAdminController::class, 'index'])->name('user-admin.index');
+        });
     });
 });
 

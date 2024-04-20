@@ -61,9 +61,9 @@ export const adminSidebarItems = [
     },
     {
         name: "Data Master",
-        link: "#",
+        link: route("dataMaster.admin"),
         icon: "gravity-ui:database-fill",
-        url: "#",
+        url: "/admin/data-master",
     },
     {
         name: "Pengaturan",

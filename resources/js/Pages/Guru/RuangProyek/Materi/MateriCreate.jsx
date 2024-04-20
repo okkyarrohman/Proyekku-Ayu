@@ -36,7 +36,7 @@ export default function MateriCreate({ auth }) {
                         name="mapel_id"
                         placeholder="Mata Pelajaran"
                         value={
-                            mapels.find((mapel) => mapel.id === data.mapel_id)
+                            mapels.find((mapel) => mapel.id == data.mapel_id)
                                 ?.name
                         }
                         error={errors.mapel_id}

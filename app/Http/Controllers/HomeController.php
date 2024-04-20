@@ -39,6 +39,6 @@ class HomeController extends Controller
 
     public function admin()
     {
-        return view('guru.dashboard');
+        return Inertia::render('Admin/Dashboard');
     }
 }

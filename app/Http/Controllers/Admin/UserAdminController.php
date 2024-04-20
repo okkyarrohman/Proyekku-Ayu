@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Classes;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -11,14 +12,28 @@ use Inertia\Inertia;
 
 class UserAdminController extends Controller
 {
-    public function index($role)
+    public function index(Request $request, $role)
     {
-        $users = User::where('role', $role)->get();
+        $searchName = $request->input('searchName');
+        $searchClass = $request->input('searchClass');
+
+        // $users = User::where('role', $role)->get();
+
+        $users = User::where('role', $role)
+            ->when($searchName, function ($query) use ($searchName) {
+                $query->where('name', 'like', '%' . $searchName . '%');
+            })
+            ->when($searchClass, function ($query) use ($searchClass) {
+                $query->where('class_id', 'like', '%' . $searchClass . '%');
+            })
+            ->get();
+
+        $classes = Classes::all();
 
         if ($role == 'guru') {
-            return Inertia::render('Admin/DataMaster/DataMasterGuruIndex', compact('users'));
+            return Inertia::render('Admin/DataMaster/DataMasterGuru/DataMasterGuruIndex', compact('users', 'classes'));
         } else {
-            return Inertia::render('Admin/DataMaster/DataMasterMuridIndex', compact('users'));
+            return Inertia::render('Admin/DataMaster/DataMasterMurid/DataMasterMuridIndex', compact('users', 'classes'));
         };
     }
 

@@ -1,6 +1,7 @@
 export default function TextInput({
     name,
     onChange,
+    onKeyDown,
     value,
     autoFocus = false,
     disabled = false,
@@ -11,6 +12,7 @@ export default function TextInput({
             type="text"
             name={name}
             onChange={onChange}
+            onKeyDown={onKeyDown}
             value={value}
             autoFocus={autoFocus}
             disabled={disabled}

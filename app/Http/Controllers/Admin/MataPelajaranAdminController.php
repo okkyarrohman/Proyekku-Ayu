@@ -16,7 +16,7 @@ class MataPelajaranAdminController extends Controller
     {
         $mapels = MataPelajaran::all();
 
-        return Inertia::render('Admin/MataPelajaran/MataPelajaranIndex', compact('mapels'));
+        return Inertia::render('Admin/DataMaster/MataPelajaran/MataPelajaranIndex', compact('mapels'));
     }
 
     /**
