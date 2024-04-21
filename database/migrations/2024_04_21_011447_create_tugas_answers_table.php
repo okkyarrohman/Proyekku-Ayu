@@ -15,12 +15,12 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('tugas_id');
             $table->unsignedBigInteger('user_id');
-            $table->longText('answer_1');
-            $table->longText('answer_2')->nullable();
-            $table->longText('answer_3');
-            $table->longText('answer_4');
-            $table->longText('answer_5');
-            $table->longText('answer_6');
+            $table->longText('answer_1')->nullable();
+            // $table->longText('answer_2')->nullable();
+            $table->longText('answer_3')->nullable();
+            $table->longText('answer_4')->nullable();
+            $table->longText('answer_5')->nullable();
+            $table->longText('answer_6')->nullable();
             $table->timestamps();
 
             $table->foreign('tugas_id')->references('id')->on('tugases');

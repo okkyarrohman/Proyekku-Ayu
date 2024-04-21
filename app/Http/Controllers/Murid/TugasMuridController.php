@@ -44,15 +44,50 @@ class TugasMuridController extends Controller
      */
     public function store(Request $request)
     {
+        if ($request->hasFile('answer_3')) {
+            $answer_3 = $request->file('answer_3');
+            $extension = $answer_3->getClientOriginalName();
+            $answer3Name = date('YmdHis') . "." . $extension;
+            $answer_3->move(storage_path('app/public/tugas/answer/answer_3'), $answer3Name);
+        } else {
+            $answer3Name = null;
+        };
+
+        if ($request->hasFile('answer_4')) {
+            $answer_4 = $request->file('answer_4');
+            $extension = $answer_4->getClientOriginalName();
+            $answer4Name = date('YmdHis') . "." . $extension;
+            $answer_4->move(storage_path('app/public/tugas/answer/answer_4'), $answer4Name);
+        } else {
+            $answer4Name = null;
+        };
+
+        if ($request->hasFile('answer_5')) {
+            $answer_5 = $request->file('answer_5');
+            $extension = $answer_5->getClientOriginalName();
+            $answer5Name = date('YmdHis') . "." . $extension;
+            $answer_5->move(storage_path('app/public/tugas/answer/answer_5'), $answer5Name);
+        } else {
+            $answer5Name = null;
+        };
+
+        if ($request->hasFile('answer_6')) {
+            $answer_6 = $request->file('answer_6');
+            $extension = $answer_6->getClientOriginalName();
+            $answer6Name = date('YmdHis') . "." . $extension;
+            $answer_6->move(storage_path('app/public/tugas/answer/answer_6'), $answer6Name);
+        } else {
+            $answer6Name = null;
+        };
+
         $answers = TugasAnswer::create([
             'tugas_id' => $request->tugas_id,
             'user_id' => Auth::user()->id,
             'answer_1' => $request->answer_1,
-            'answer_2' => $request->answer_2,
-            'answer_3' => $request->answer_3,
-            'answer_4' => $request->answer_4,
-            'answer_5' => $request->answer_5,
-            'answer_6' => $request->answer_6,
+            'answer_3' => $answer3Name,
+            'answer_4' => $answer4Name,
+            'answer_5' => $answer5Name,
+            'answer_6' => $answer6Name,
         ]);
 
         TugasAnswerDate::create([
@@ -75,13 +110,7 @@ class TugasMuridController extends Controller
 
         $answers = TugasAnswer::where('tugas_id', $id)->where('user_id', Auth::user()->id)->with(['tugases', 'answer_dates'])->first();
 
-        $kelompoks = Kelompok::where('tugas_id', $id)->get();
-
-        $users = User::where('id', Auth::user()->id)->with(['members.kelompoks'])->first();
-
-        return Inertia::render('Murid/RuangProyek/Tugas/TugasShow', compact(
-            'tugases', 'answers', 'kelompoks', 'users'
-        ));
+        return Inertia::render('Murid/RuangProyek/Tugas/TugasShow', compact('tugases', 'answers'));
     }
 
     /**
@@ -103,7 +132,47 @@ class TugasMuridController extends Controller
     {
         $answers = TugasAnswer::findOrFail($answerId);
 
+        if ($request->hasFile('answer_3')) {
+            $answer_3 = $request->file('answer_3');
+            $extension = $answer_3->getClientOriginalName();
+            $answer3Name = date('YmdHis') . "." . $extension;
+            $answer_3->move(storage_path('app/public/tugas/answer/answer_3'), $answer3Name);
+        } else {
+            $answer3Name = $answers->answer_3;
+        };
+
+        if ($request->hasFile('answer_4')) {
+            $answer_4 = $request->file('answer_4');
+            $extension = $answer_4->getClientOriginalName();
+            $answer4Name = date('YmdHis') . "." . $extension;
+            $answer_4->move(storage_path('app/public/tugas/answer/answer_4'), $answer4Name);
+        } else {
+            $answer4Name = $answers->answer_4;
+        };
+
+        if ($request->hasFile('answer_5')) {
+            $answer_5 = $request->file('answer_5');
+            $extension = $answer_5->getClientOriginalName();
+            $answer5Name = date('YmdHis') . "." . $extension;
+            $answer_5->move(storage_path('app/public/tugas/answer/answer_5'), $answer5Name);
+        } else {
+            $answer5Name = $answers->answer_5;
+        };
+
+        if ($request->hasFile('answer_6')) {
+            $answer_6 = $request->file('answer_6');
+            $extension = $answer_6->getClientOriginalName();
+            $answer6Name = date('YmdHis') . "." . $extension;
+            $answer_6->move(storage_path('app/public/tugas/answer/answer_6'), $answer6Name);
+        } else {
+            $answer6Name = $answers->answer_6;
+        };
+
         $answersUpdate = $request->all();
+        $answersUpdate['answer_3'] = $answer3Name;
+        $answersUpdate['answer_4'] = $answer4Name;
+        $answersUpdate['answer_5'] = $answer5Name;
+        $answersUpdate['answer_6'] = $answer6Name;
 
         $answers->update($answersUpdate);
 
@@ -130,6 +199,10 @@ class TugasMuridController extends Controller
 
     public function detail(string $id)
     {
-        return Inertia::render('Murid/RuangProyek/Tugas/TugasDetail');
+        $tugases = Tugas::where('id', $id)->with(['classes', 'answers', 'kelompoks.members'])->first();
+
+        $answers = TugasAnswer::where('tugas_id', $id)->where('user_id', Auth::user()->id)->with(['tugases', 'answer_dates'])->first();
+
+        return Inertia::render('Murid/RuangProyek/Tugas/TugasDetail', compact('tugases', 'answers'));
     }
 }

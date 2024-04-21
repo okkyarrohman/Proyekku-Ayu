@@ -15,10 +15,10 @@ return new class extends Migration
         Schema::create('tugas_answer_dates', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('answer_id');
-            $table->date('date_1');
-            $table->date('date_2');
-            $table->date('date_3');
-            $table->date('date_4');
+            $table->date('date_1')->nullable();
+            $table->date('date_2')->nullable();
+            $table->date('date_3')->nullable();
+            $table->date('date_4')->nullable();
             $table->timestamps();
 
             $table->foreign('answer_id')->references('id')->on('tugas_answers');

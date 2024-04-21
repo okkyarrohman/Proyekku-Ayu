@@ -10,13 +10,13 @@ import { checkDeadline } from "@/utils/checkDeadline";
 import { usePage } from "@inertiajs/react";
 
 export default function TugasShow({ auth }) {
-    const { tugases, classes, kelompoks, users } = usePage().props;
+    const { tugases, answers } = usePage().props;
 
     const userKelompoks = tugases.kelompoks.find((kelompok) =>
         kelompok.members.some((member) => member.user_id === auth.user.id)
     );
 
-    console.log(userKelompoks);
+    console.log(tugases);
 
     return (
         <AuthenticatedLayout authUser={auth.user} title="Ruang Proyek">
