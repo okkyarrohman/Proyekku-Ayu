@@ -129,6 +129,8 @@ class TugasGuruController extends Controller
     {
         $tugases = Tugas::findOrFail($id);
 
+        Storage::delete("public/materi/cover/" . $tugases->cover);
+
         $tugases->delete();
 
         return to_route('tugas-guru.index');

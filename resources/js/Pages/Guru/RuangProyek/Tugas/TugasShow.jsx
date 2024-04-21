@@ -1,3 +1,4 @@
+import DeleteLink from "@/Components/General/atoms/DeleteLink";
 import Description from "@/Components/General/atoms/Description";
 import PrimaryLink from "@/Components/General/atoms/PrimaryLink";
 import Title from "@/Components/General/atoms/Title";
@@ -44,12 +45,19 @@ export default function TugasShow({ auth }) {
                         <StepList step={tugases.step_5} />
                         <StepList step={tugases.step_6} />
                     </div>
-                    <div className="flex justify-between">
+                    <div className="flex justify-end gap-5">
                         <PrimaryLink text="Detail Proyek" />
                         <PrimaryLink text="Hasil Proyek" />
+                    </div>
+                    <hr className="bg-primary-100 h-1" />
+                    <div className="flex justify-end gap-5">
                         <PrimaryLink
                             text="Edit Proyek"
                             href={route("tugas-guru.edit", tugases.id)}
+                        />
+                        <DeleteLink
+                            text="Hapus Materi"
+                            href={route("tugas-guru.destroy", tugases.id)}
                         />
                     </div>
                 </div>

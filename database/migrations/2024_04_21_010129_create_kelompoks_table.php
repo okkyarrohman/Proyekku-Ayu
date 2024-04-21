@@ -19,7 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('class_id');
             $table->timestamps();
 
-            $table->foreign('tugas_id')->references('id')->on('tugases');
+            $table->foreign('tugas_id')->references('id')->on('tugases')->onDelete('cascade');
             $table->foreign('class_id')->references('id')->on('classes');
         });
     }
