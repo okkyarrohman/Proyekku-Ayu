@@ -13,7 +13,6 @@ export default function RuangProyek({ auth }) {
             link: route("tugas-guru.index"),
             icon: "clarity:flow-chart-solid",
         },
-        { title: "Kelompok Proyek", link: "", icon: "mingcute:group-3-fill" },
     ];
 
     return (

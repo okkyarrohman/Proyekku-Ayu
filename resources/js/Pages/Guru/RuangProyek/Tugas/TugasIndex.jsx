@@ -3,6 +3,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import TugasIndexTemplate from "@/Components/Tugas/template/TugasIndexTemplate";
 import { usePage } from "@inertiajs/react";
 import AddButton from "@/Components/General/molecules/AddButton";
+import { checkDeadline } from "@/utils/checkDeadline";
 
 export default function TugasIndex({ auth }) {
     const { tugases } = usePage().props;
@@ -16,7 +17,11 @@ export default function TugasIndex({ auth }) {
                     return (
                         <TugasCard
                             key={index}
-                            status="Proyek Berjalan"
+                            status={
+                                checkDeadline(tugas.deadline)
+                                    ? "Proyek Selesai"
+                                    : "Proyek Berlangsung"
+                            }
                             cover={tugas.cover}
                             desc={tugas.desc}
                             link={route("tugas-guru.show", tugas.id)}

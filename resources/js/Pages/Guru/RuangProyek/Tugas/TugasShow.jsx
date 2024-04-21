@@ -9,6 +9,7 @@ import StepList from "@/Components/Tugas/atoms/StepList";
 import DetailTugas from "@/Components/Tugas/molecules/DetailTugas";
 import TugasShowTemplate from "@/Components/Tugas/template/TugasShowTemplate";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+import { checkDeadline } from "@/utils/checkDeadline";
 import { formatFullDate } from "@/utils/formatFullDate";
 import { Icon } from "@iconify/react";
 import { usePage } from "@inertiajs/react";
@@ -23,7 +24,11 @@ export default function TugasShow({ auth }) {
             <TugasShowTemplate>
                 <DetailTugas
                     name={tugases.name}
-                    status="Berjalan"
+                    status={
+                        checkDeadline(tugases.deadline)
+                            ? "Proyek Selesai"
+                            : "Proyek Berlangsung"
+                    }
                     deadline={tugases.deadline}
                     classes={tugases.classes.name}
                     tugasId={tugases.id}
