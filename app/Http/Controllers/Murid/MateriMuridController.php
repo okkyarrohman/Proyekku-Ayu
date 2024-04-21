@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\MataPelajaran;
 use App\Models\Materi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class MateriMuridController extends Controller
@@ -19,6 +20,9 @@ class MateriMuridController extends Controller
 
         // $materis = Materi::all();
         $materis = Materi::with(['mapels'])
+            ->whereHas('mapels', function ($query) {
+                $query->where('class_id', Auth::user()->class_id);
+            })
             ->when($searchMapel, function ($query) use ($searchMapel) {
                 $query->where('mapel_id', 'like', '%' . $searchMapel . '%');
             })

@@ -6,7 +6,7 @@ export default function AddButton({ link, text }) {
     return (
         <Link
             href={link}
-            className="w-1/2 flex flex-col items-center justify-center space-y-4 mx-auto"
+            className="w-1/2 min-h-60 flex flex-col items-center justify-center space-y-4 mx-auto"
         >
             <div className="rounded-xl bg-primary-100 w-fit p-3">
                 <Icon

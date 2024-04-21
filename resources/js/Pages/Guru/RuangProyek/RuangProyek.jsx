@@ -8,7 +8,11 @@ export default function RuangProyek({ auth }) {
             link: route("materi-guru.index"),
             icon: "ion:book",
         },
-        { title: "Tugas Proyek", link: "", icon: "clarity:flow-chart-solid" },
+        {
+            title: "Tugas Proyek",
+            link: route("tugas-guru.index"),
+            icon: "clarity:flow-chart-solid",
+        },
         { title: "Kelompok Proyek", link: "", icon: "mingcute:group-3-fill" },
     ];
 

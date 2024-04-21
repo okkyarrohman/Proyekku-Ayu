@@ -48,4 +48,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    // public function kelompoks() {
+    //     return $this->belongsTo(Kelompok::class, 'kelompok_id', 'id');
+    // }
 }

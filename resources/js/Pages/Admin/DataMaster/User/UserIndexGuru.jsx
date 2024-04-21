@@ -1,5 +1,4 @@
 import FilterLabel from "@/Components/General/atoms/FilterLabel";
-import PrimaryButton from "@/Components/General/atoms/PrimaryButton";
 import TableActionButton from "@/Components/General/atoms/TableActionButton";
 import TableBody from "@/Components/General/atoms/TableBody";
 import TableContainer from "@/Components/General/atoms/TableContainer";

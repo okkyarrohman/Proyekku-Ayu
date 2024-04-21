@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\MataPelajaranAdminController;
 use App\Http\Controllers\Admin\UserAdminController;
+use App\Http\Controllers\Guru\KelompokGuruController;
 use App\Http\Controllers\Guru\MateriGuruController;
 use App\Http\Controllers\Guru\TugasGuruController;
 use App\Http\Controllers\HomeController;
@@ -70,7 +71,9 @@ Route::group(['middleware' => 'role:guru'], function () {
             Route::resources([
                 'materi-guru' => MateriGuruController::class,
                 'tugas-guru' => TugasGuruController::class,
+                'kelompok-guru' => KelompokGuruController::class,
             ]);
+            Route::get('/tugas-guru/detail/{id}', [MateriGuruController::class, 'detail'])->name('tugas-guru.detail');
         });
     });
 });
