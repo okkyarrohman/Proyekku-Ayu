@@ -49,7 +49,7 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    // public function kelompoks() {
-    //     return $this->belongsTo(Kelompok::class, 'kelompok_id', 'id');
-    // }
+    public function members() {
+        return $this->hasMany(KelompokUser::class, 'user_id', 'id');
+    }
 }

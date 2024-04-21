@@ -1,6 +1,7 @@
 import PrimaryLink from "@/Components/General/atoms/PrimaryLink";
 import CreateTemplate from "@/Components/General/template/CreateTemplate";
 import TugasCard from "@/Components/Tugas/molecules/TugasCard";
+import TugasIndexTemplate from "@/Components/Tugas/template/TugasIndexTemplate";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { usePage } from "@inertiajs/react";
 
@@ -11,7 +12,7 @@ export default function TugasIndex({ auth }) {
 
     return (
         <AuthenticatedLayout authUser={auth.user} title="Ruang Proyek">
-            <CreateTemplate title="TUGAS PROYEK">
+            <TugasIndexTemplate>
                 {tugases.map((tugas, index) => {
                     return (
                         <TugasCard
@@ -19,11 +20,11 @@ export default function TugasIndex({ auth }) {
                             status="Proyek Berjalan"
                             cover={tugas.cover}
                             desc={tugas.desc}
-                            link={route("tugas-guru.show", tugas.id)}
+                            link={route("tugas.show", tugas.id)}
                         />
                     );
                 })}
-            </CreateTemplate>
+            </TugasIndexTemplate>
         </AuthenticatedLayout>
     );
 }

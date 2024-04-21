@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Murid;
 
 use App\Http\Controllers\Controller;
+use App\Models\Kelompok;
+use App\Models\KelompokUser;
 use App\Models\Tugas;
 use App\Models\TugasAnswer;
 use App\Models\TugasAnswerDate;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -33,7 +36,7 @@ class TugasMuridController extends Controller
      */
     public function create()
     {
-        return view('murid.tugas.create');
+        //
     }
 
     /**
@@ -68,11 +71,17 @@ class TugasMuridController extends Controller
      */
     public function show(string $id)
     {
-        $tugases = Tugas::where('id', $id)->with(['answers'])->first();
+        $tugases = Tugas::where('id', $id)->with(['classes', 'answers', 'kelompoks.members'])->first();
 
         $answers = TugasAnswer::where('tugas_id', $id)->where('user_id', Auth::user()->id)->with(['tugases', 'answer_dates'])->first();
 
-        return Inertia::render('Murid/RuangProyek/Tugas/TugasShow', compact('tugases', 'answers'));
+        $kelompoks = Kelompok::where('tugas_id', $id)->get();
+
+        $users = User::where('id', Auth::user()->id)->with(['members.kelompoks'])->first();
+
+        return Inertia::render('Murid/RuangProyek/Tugas/TugasShow', compact(
+            'tugases', 'answers', 'kelompoks', 'users'
+        ));
     }
 
     /**
@@ -108,7 +117,7 @@ class TugasMuridController extends Controller
             ]
         );
 
-        return redirect()->route('tugas.index')->with('success', 'Data Berhasil Diupdate');
+        return to_route('tugas.index');
     }
 
     /**
@@ -116,6 +125,11 @@ class TugasMuridController extends Controller
      */
     public function destroy(string $id)
     {
-        return redirect()->route('tugas.index')->with('success', 'Data Berhasil Dihapus');
+        //
+    }
+
+    public function detail(string $id)
+    {
+        return Inertia::render('Murid/RuangProyek/Tugas/TugasDetail');
     }
 }

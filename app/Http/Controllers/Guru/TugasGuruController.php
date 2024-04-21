@@ -18,13 +18,15 @@ class TugasGuruController extends Controller
     {
         $searchClass = $request->input('searchClass');
 
+        $classes = Classes::all();
+
         $tugases = Tugas::with(['classes'])
             ->when($searchClass, function ($query) use ($searchClass) {
                 $query->where('class_id', 'like', '%' . $searchClass . '%');
             })
             ->get();
 
-        return Inertia::render('Guru/RuangProyek/Tugas/TugasIndex', compact('tugases'));
+        return Inertia::render('Guru/RuangProyek/Tugas/TugasIndex', compact('tugases', 'classes'));
     }
 
     /**
@@ -140,6 +142,6 @@ class TugasGuruController extends Controller
     {
         $tugases = Tugas::where('id', $id)->with(['classes'])->first();
 
-        return Inertia::render('Guru/RuangProyek/Tugas/TugasShow', compact('tugases'));
+        return Inertia::render('Guru/RuangProyek/Tugas/TugasDetail', compact('tugases'));
     }
 }

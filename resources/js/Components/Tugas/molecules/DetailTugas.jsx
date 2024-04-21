@@ -9,6 +9,7 @@ export default function DetailTugas({
     status,
     deadline,
     classes,
+    kelompok,
     tugasId,
     classId,
 }) {
@@ -40,6 +41,10 @@ export default function DetailTugas({
                 <div className="flex lg:flex-row flex-col text-xl font-medium text-primary-200">
                     <p>Kelas : </p>
                     <p className="text-black lg:ml-6 ml-0">{classes}</p>
+                </div>
+                <div className="flex lg:flex-row flex-col text-xl font-medium text-primary-200">
+                    <p>Kelompok : </p>
+                    <p className="text-black lg:ml-6 ml-0">{kelompok}</p>
                 </div>
             </div>
             <div className="mx-auto w-fit">

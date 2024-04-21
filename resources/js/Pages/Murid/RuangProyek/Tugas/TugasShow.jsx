@@ -1,116 +1,66 @@
+import DeleteLink from "@/Components/General/atoms/DeleteLink";
+import Description from "@/Components/General/atoms/Description";
 import PrimaryLink from "@/Components/General/atoms/PrimaryLink";
+import Title from "@/Components/General/atoms/Title";
+import StepList from "@/Components/Tugas/atoms/StepList";
+import DetailTugas from "@/Components/Tugas/molecules/DetailTugas";
+import TugasShowTemplate from "@/Components/Tugas/template/TugasShowTemplate";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { useForm, usePage } from "@inertiajs/react";
+import { checkDeadline } from "@/utils/checkDeadline";
+import { usePage } from "@inertiajs/react";
 
 export default function TugasShow({ auth }) {
-    const { tugases, answers } = usePage().props;
+    const { tugases, classes, kelompoks, users } = usePage().props;
 
-    const { data, setData, post, errors } = useForm({
-        tugas_id: tugases.id,
-        answer_1: "",
-        answer_3: "",
-        answer_4: "",
-        answer_5: "",
-        answer_6: "",
-        date_1: "",
-        date_2: "",
-        date_3: "",
-        date_4: "",
-    });
+    const userKelompoks = tugases.kelompoks.find((kelompok) =>
+        kelompok.members.some((member) => member.user_id === auth.user.id)
+    );
 
-    const handleOnSubmit = (e) => {
-        e.preventDefault();
-        post(route("tugas.store"));
-    };
-
-    console.log("TUGAS", tugases);
-    console.log("ANSWER", answers);
+    console.log(userKelompoks);
 
     return (
         <AuthenticatedLayout authUser={auth.user} title="Ruang Proyek">
-            <p>name : {tugases.name}</p>
-            <p>deadline : {tugases.deadline}</p>
-            <form onSubmit={handleOnSubmit} className="space-y-5">
-                <div className="border border-primary-100 p-4">
-                    <p>{tugases.step_1}</p>
-                    <p>{tugases.desc_1}</p>
-                    <input
-                        type="text"
-                        name="answer_1"
-                        value={data.answer_1}
-                        onChange={(e) => setData("answer_1", e.target.value)}
+            <TugasShowTemplate>
+                <DetailTugas
+                    name={tugases.name}
+                    status={
+                        checkDeadline(tugases.deadline)
+                            ? "Proyek Selesai"
+                            : "Proyek Berlangsung"
+                    }
+                    deadline={tugases.deadline}
+                    classes={tugases.classes.name}
+                    kelompok={
+                        userKelompoks ? userKelompoks.name : "Belum Tergabung"
+                    }
+                    tugasId={tugases.id}
+                    classId={tugases.class_id}
+                />
+                <div className="space-y-6">
+                    <Title
+                        title="Perhatikan langkah-langkah berikut!"
+                        color="text-red-600"
+                        weight="font-normal"
+                        size="text-3xl"
+                        align="text-center"
                     />
+                    <div className="space-y-2">
+                        <StepList step={tugases.step_1} />
+                        <StepList step={tugases.step_2} />
+                        <StepList step={tugases.step_3} />
+                        <StepList step={tugases.step_4} />
+                        <StepList step={tugases.step_5} />
+                        <StepList step={tugases.step_6} />
+                    </div>
+                    <div className="flex justify-end gap-5">
+                        <PrimaryLink
+                            text="Detail Proyek"
+                            href={route("tugas.detail", tugases.id)}
+                        />
+                        <PrimaryLink text="Hasil Proyek" />
+                    </div>
                 </div>
-                <div className="border border-primary-100 p-4">
-                    <p>{tugases.step_2}</p>
-                    <p>{tugases.desc_2}</p>
-                    <input
-                        type="datetime-local"
-                        name="date_1"
-                        value={data.date_1}
-                        onChange={(e) => setData("date_1", e.target.value)}
-                    />
-                    <input
-                        type="datetime-local"
-                        name="date_2"
-                        value={data.date_2}
-                        onChange={(e) => setData("date_2", e.target.value)}
-                    />
-                    <input
-                        type="datetime-local"
-                        name="date_3"
-                        value={data.date_3}
-                        onChange={(e) => setData("date_3", e.target.value)}
-                    />
-                    <input
-                        type="datetime-local"
-                        name="date_4"
-                        value={data.date_4}
-                        onChange={(e) => setData("date_4", e.target.value)}
-                    />
-                </div>
-                <div className="border border-primary-100 p-4">
-                    <p>{tugases.step_3}</p>
-                    <p>{tugases.desc_3}</p>
-                    <input
-                        type="text"
-                        name="answer_3"
-                        value={data.answer_3}
-                        onChange={(e) => setData("answer_3", e.target.value)}
-                    />
-                </div>
-                <div className="border border-primary-100 p-4">
-                    <p>{tugases.step_4}</p>
-                    <p>{tugases.desc_4}</p>
-                    <input
-                        type="text"
-                        name="answer_4"
-                        value={data.answer_4}
-                        onChange={(e) => setData("answer_4", e.target.value)}
-                    />
-                </div>
-                <div className="border border-primary-100 p-4">
-                    <p>{tugases.step_5}</p>
-                    <p>{tugases.desc_5}</p>
-                    <input
-                        type="text"
-                        name="answer_5"
-                        value={data.answer_5}
-                        onChange={(e) => setData("answer_5", e.target.value)}
-                    />
-                </div>
-                <div className="border border-primary-100 p-4">
-                    <p>{tugases.step_6}</p>
-                    <p>{tugases.desc_6}</p>
-                    <input
-                        type="text"
-                        name="answer_6"
-                        value={data.answer_6}
-                        onChange={(e) => setData("answer_6", e.target.value)}
-                    />
-                </div>
-                <button type="submit">Submit</button>
-            </form>
+            </TugasShowTemplate>
         </AuthenticatedLayout>
     );
 }

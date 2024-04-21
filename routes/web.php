@@ -73,7 +73,7 @@ Route::group(['middleware' => 'role:guru'], function () {
                 'tugas-guru' => TugasGuruController::class,
                 'kelompok-guru' => KelompokGuruController::class,
             ]);
-            Route::get('/tugas-guru/detail/{id}', [MateriGuruController::class, 'detail'])->name('tugas-guru.detail');
+            Route::get('/tugas-guru/detail/{id}', [TugasGuruController::class, 'detail'])->name('tugas-guru.detail');
         });
     });
 });
@@ -89,6 +89,7 @@ Route::group(['middleware' => 'role:murid'], function () {
                 'materi' => MateriMuridController::class,
                 'tugas' => TugasMuridController::class,
             ]);
+            Route::get('/tugas/detail/{id}', [TugasMuridController::class, 'detail'])->name('tugas.detail');
         });
         Route::inertia('/laporan', 'Murid/Laporan/Laporan')->name('laporan.murid');
         Route::inertia('/pengaturan', 'Pengaturan/Pengaturan')->name('pengaturan.murid');

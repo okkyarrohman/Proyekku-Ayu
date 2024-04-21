@@ -51,7 +51,10 @@ export default function TugasShow({ auth }) {
                         <StepList step={tugases.step_6} />
                     </div>
                     <div className="flex justify-end gap-5">
-                        <PrimaryLink text="Detail Proyek" />
+                        <PrimaryLink
+                            text="Detail Proyek"
+                            href={route("tugas-guru.detail", tugases.id)}
+                        />
                         <PrimaryLink text="Hasil Proyek" />
                     </div>
                     <hr className="bg-primary-100 h-1" />
