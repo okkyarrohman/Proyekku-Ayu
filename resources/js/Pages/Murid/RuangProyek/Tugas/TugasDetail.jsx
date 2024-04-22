@@ -13,16 +13,20 @@ import { useForm, usePage } from "@inertiajs/react";
 import { useState } from "react";
 
 export default function TugasDetail({ auth }) {
-    const { tugases, answers } = usePage().props;
+    const { tugases, answers, users } = usePage().props;
 
     const kelompokId = localStorage.getItem("KELOMPOK_ID");
 
-    console.log(answers);
+    const userKelompoks = users.members.find(
+        (member) => member.kelompoks.tugas_id === tugases.id
+    );
+
+    console.log(userKelompoks);
 
     const { data, setData, post, errors } = useForm({
         _method: answers ? "PATCH" : "POST",
         tugas_id: tugases.id,
-        kelompok_id: kelompokId,
+        kelompok_id: userKelompoks.kelompok_id,
         answer_1: answers ? answers.answer_1 : "",
         answer_3: answers ? answers.answer_3 : null,
         answer_4: answers ? answers.answer_4 : null,

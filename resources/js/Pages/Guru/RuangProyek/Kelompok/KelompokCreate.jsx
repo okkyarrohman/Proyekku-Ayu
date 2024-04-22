@@ -30,11 +30,14 @@ export default function KelompokCreate({ auth }) {
     const [searchTerm, setSearchTerm] = useState("");
     const [step, setStep] = useState(1);
 
-    const filteredUsers = users.filter((user) =>
+    const usersByClass = users.filter((user) => user.class_id == data.class_id);
+
+    const filteredUsers = usersByClass.filter((user) =>
         user.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     console.log(data.users);
+    console.log(usersByClass);
 
     // const handleUserSelection = (userId) => {
     //     const newUsers = data.users.includes(userId)
@@ -156,7 +159,7 @@ export default function KelompokCreate({ auth }) {
                                         setSearchTerm(e.target.value)
                                     }
                                 />
-                                {(filteredUsers || users).map((user) => (
+                                {(filteredUsers || usersByClass).map((user) => (
                                     <MultipleSelectItem
                                         key={user.id}
                                         // value={user.id}

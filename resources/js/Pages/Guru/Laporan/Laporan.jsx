@@ -6,7 +6,7 @@ export default function Laporan({ auth }) {
     const menuItems = [
         {
             title: "Hasil Belajar",
-            link: route("materi.index"),
+            link: route("hasil-belajar-guru.index"),
             img: "/assets/cartoon1-image.png",
         },
         {

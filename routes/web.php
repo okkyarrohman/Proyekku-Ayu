@@ -2,10 +2,12 @@
 
 use App\Http\Controllers\Admin\MataPelajaranAdminController;
 use App\Http\Controllers\Admin\UserAdminController;
+use App\Http\Controllers\Guru\HasilBelajarGuruController;
 use App\Http\Controllers\Guru\KelompokGuruController;
 use App\Http\Controllers\Guru\MateriGuruController;
 use App\Http\Controllers\Guru\TugasGuruController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Murid\HasilBelajarMuridController;
 use App\Http\Controllers\Murid\KelompokMuridController;
 use App\Http\Controllers\Murid\MateriMuridController;
 use App\Http\Controllers\Murid\TugasMuridController;
@@ -79,7 +81,9 @@ Route::group(['middleware' => 'role:guru'], function () {
         });
         Route::inertia('/laporan', 'Guru/Laporan/Laporan')->name('laporan.guru');
         Route::prefix('laporan')->group(function () {
-
+            Route::resources([
+                'hasil-belajar-guru' => HasilBelajarGuruController::class,
+            ]);
         });
     });
 });
@@ -100,7 +104,9 @@ Route::group(['middleware' => 'role:murid'], function () {
         });
         Route::inertia('/laporan', 'Murid/Laporan/Laporan')->name('laporan.murid');
         Route::prefix('laporan')->group(function () {
-
+            Route::resources([
+                'hasil-belajar' => HasilBelajarMuridController::class,
+            ]);
         });
         Route::inertia('/pengaturan', 'Pengaturan/Pengaturan')->name('pengaturan.murid');
     });

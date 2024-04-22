@@ -204,6 +204,8 @@ class TugasMuridController extends Controller
 
         $answers = TugasAnswer::where('tugas_id', $id)->where('user_id', Auth::user()->id)->with(['tugases', 'answer_dates'])->first();
 
-        return Inertia::render('Murid/RuangProyek/Tugas/TugasDetail', compact('tugases', 'answers'));
+        $users = User::where('id', Auth::user()->id)->with(['members.kelompoks'])->first();
+
+        return Inertia::render('Murid/RuangProyek/Tugas/TugasDetail', compact('tugases', 'answers', 'users'));
     }
 }
