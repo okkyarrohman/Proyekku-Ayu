@@ -11,7 +11,7 @@ export default function Laporan({ auth }) {
         },
         {
             title: "Jurnal Kehadiran",
-            link: "",
+            link: route("absensi-guru.index"),
             img: "/assets/cartoon2-image.png",
         },
     ];
