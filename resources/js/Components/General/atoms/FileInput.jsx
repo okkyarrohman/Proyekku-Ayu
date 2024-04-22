@@ -9,6 +9,7 @@ export default function FileInput({
     disabled = false,
     fileType,
     placeholder,
+    large = false,
 }) {
     const handleOnClick = () => {
         document.getElementById(name).click();
@@ -28,7 +29,9 @@ export default function FileInput({
                 value={value}
                 readOnly
                 placeholder={placeholder}
-                className="bg-white rounded-xl px-4 w-full pe-10"
+                className={`bg-white rounded-xl px-4 w-full pe-10 ${
+                    large ? "h-48" : ""
+                }`}
                 onClick={handleOnClick}
                 autoFocus={autoFocus}
                 disabled={disabled}

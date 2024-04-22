@@ -4,8 +4,10 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Kelompok;
 use App\Models\MataPelajaran;
 use App\Models\Materi;
+use App\Models\Tugas;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -21,5 +23,7 @@ class DatabaseSeeder extends Seeder
 
         MataPelajaran::factory(3)->create();
         Materi::factory(5)->create();
+        Tugas::factory(3)->create();
+        Kelompok::factory(5)->create();
     }
 }

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('photo')->nullable();
             $table->unsignedBigInteger('class_id')->nullable();
+            // $table->unsignedBigInteger('kelompok_id')->nullable();
             $table->string('nip')->nullable();
             $table->enum('role', ['murid', 'guru', 'admin']);
             $table->timestamp('email_verified_at')->nullable();
@@ -27,6 +28,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('class_id')->references('id')->on('classes');
+            // $table->foreign('kelompok_id')->references('id')->on('kelompoks');
         });
     }
 

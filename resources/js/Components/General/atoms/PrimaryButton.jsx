@@ -14,10 +14,11 @@ export default function PrimaryButton({
             disabled={disabled}
             onClick={onClick}
             className={
-                `w-${
-                    full ? "full" : "fit"
-                } rounded-full bg-primary-100 py-2 px-6 font-semibold text-white text-base hover:bg-primary-200` +
-                className
+                `w-${full ? "full" : "fit"} rounded-full ${
+                    disabled
+                        ? "bg-primary-500"
+                        : "bg-primary-100 hover:bg-primary-200"
+                }  py-2 px-6 font-semibold text-white text-base` + className
             }
         >
             {text}

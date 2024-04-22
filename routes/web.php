@@ -2,9 +2,13 @@
 
 use App\Http\Controllers\Admin\MataPelajaranAdminController;
 use App\Http\Controllers\Admin\UserAdminController;
+use App\Http\Controllers\Guru\HasilBelajarGuruController;
+use App\Http\Controllers\Guru\KelompokGuruController;
 use App\Http\Controllers\Guru\MateriGuruController;
 use App\Http\Controllers\Guru\TugasGuruController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Murid\HasilBelajarMuridController;
+use App\Http\Controllers\Murid\KelompokMuridController;
 use App\Http\Controllers\Murid\MateriMuridController;
 use App\Http\Controllers\Murid\TugasMuridController;
 use App\Http\Controllers\ProfileController;
@@ -70,6 +74,15 @@ Route::group(['middleware' => 'role:guru'], function () {
             Route::resources([
                 'materi-guru' => MateriGuruController::class,
                 'tugas-guru' => TugasGuruController::class,
+                'kelompok-guru' => KelompokGuruController::class,
+            ]);
+            Route::get('/tugas-guru/detail/{id}', [TugasGuruController::class, 'detail'])->name('tugas-guru.detail');
+            Route::get('/tugas-guru/hasil/{id}', [TugasGuruController::class, 'hasil'])->name('tugas-guru.hasil');
+        });
+        Route::inertia('/laporan', 'Guru/Laporan/Laporan')->name('laporan.guru');
+        Route::prefix('laporan')->group(function () {
+            Route::resources([
+                'hasil-belajar-guru' => HasilBelajarGuruController::class,
             ]);
         });
     });
@@ -85,9 +98,16 @@ Route::group(['middleware' => 'role:murid'], function () {
             Route::resources([
                 'materi' => MateriMuridController::class,
                 'tugas' => TugasMuridController::class,
+                'kelompok' => KelompokMuridController::class,
             ]);
+            Route::get('/tugas/detail/{id}', [TugasMuridController::class, 'detail'])->name('tugas.detail');
         });
         Route::inertia('/laporan', 'Murid/Laporan/Laporan')->name('laporan.murid');
+        Route::prefix('laporan')->group(function () {
+            Route::resources([
+                'hasil-belajar' => HasilBelajarMuridController::class,
+            ]);
+        });
         Route::inertia('/pengaturan', 'Pengaturan/Pengaturan')->name('pengaturan.murid');
     });
 });
