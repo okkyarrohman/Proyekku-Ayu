@@ -144,4 +144,13 @@ class TugasGuruController extends Controller
 
         return Inertia::render('Guru/RuangProyek/Tugas/TugasDetail', compact('tugases'));
     }
+
+    public function hasil(string $id)
+    {
+        $tugases = Tugas::where('id', $id)->with(['classes', 'answers.kelompoks.members.users'])->first();
+
+        $classes = Classes::all();
+
+        return Inertia::render('Guru/RuangProyek/Tugas/TugasHasil', compact('tugases', 'classes'));
+    }
 }

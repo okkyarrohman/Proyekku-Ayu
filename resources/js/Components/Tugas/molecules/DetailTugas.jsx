@@ -12,11 +12,12 @@ export default function DetailTugas({
     kelompok,
     tugasId,
     classId,
+    route,
 }) {
     const handleKelompokOnClick = (tugasId, classId) => {
         localStorage.setItem("TUGAS_ID", tugasId);
         localStorage.setItem("CLASS_ID", classId);
-        router.get(route("kelompok-guru.index"));
+        router.get(route);
     };
 
     return (
@@ -42,10 +43,12 @@ export default function DetailTugas({
                     <p>Kelas : </p>
                     <p className="text-black lg:ml-6 ml-0">{classes}</p>
                 </div>
-                <div className="flex lg:flex-row flex-col text-xl font-medium text-primary-200">
-                    <p>Kelompok : </p>
-                    <p className="text-black lg:ml-6 ml-0">{kelompok}</p>
-                </div>
+                {kelompok && (
+                    <div className="flex lg:flex-row flex-col text-xl font-medium text-primary-200">
+                        <p>Kelompok : </p>
+                        <p className="text-black lg:ml-6 ml-0">{kelompok}</p>
+                    </div>
+                )}
             </div>
             <div className="mx-auto w-fit">
                 <PrimaryButton

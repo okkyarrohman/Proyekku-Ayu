@@ -15,11 +15,14 @@ import { useState } from "react";
 export default function TugasDetail({ auth }) {
     const { tugases, answers } = usePage().props;
 
+    const kelompokId = localStorage.getItem("KELOMPOK_ID");
+
     console.log(answers);
 
     const { data, setData, post, errors } = useForm({
         _method: answers ? "PATCH" : "POST",
         tugas_id: tugases.id,
+        kelompok_id: kelompokId,
         answer_1: answers ? answers.answer_1 : "",
         answer_3: answers ? answers.answer_3 : null,
         answer_4: answers ? answers.answer_4 : null,

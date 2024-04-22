@@ -1,5 +1,6 @@
 import DeleteLink from "@/Components/General/atoms/DeleteLink";
 import Description from "@/Components/General/atoms/Description";
+import PrimaryButton from "@/Components/General/atoms/PrimaryButton";
 import PrimaryLink from "@/Components/General/atoms/PrimaryLink";
 import Title from "@/Components/General/atoms/Title";
 import StepList from "@/Components/Tugas/atoms/StepList";
@@ -7,7 +8,7 @@ import DetailTugas from "@/Components/Tugas/molecules/DetailTugas";
 import TugasShowTemplate from "@/Components/Tugas/template/TugasShowTemplate";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { checkDeadline } from "@/utils/checkDeadline";
-import { usePage } from "@inertiajs/react";
+import { router, usePage } from "@inertiajs/react";
 
 export default function TugasShow({ auth }) {
     const { tugases, answers } = usePage().props;
@@ -15,6 +16,11 @@ export default function TugasShow({ auth }) {
     const userKelompoks = tugases.kelompoks.find((kelompok) =>
         kelompok.members.some((member) => member.user_id === auth.user.id)
     );
+
+    const handleDetailOnClick = (kelompokId) => {
+        localStorage.setItem("KELOMPOK_ID", kelompokId);
+        router.get(route("tugas.detail", tugases.id));
+    };
 
     console.log(tugases);
 
@@ -35,6 +41,7 @@ export default function TugasShow({ auth }) {
                     }
                     tugasId={tugases.id}
                     classId={tugases.class_id}
+                    route={route("kelompok.index")}
                 />
                 <div className="space-y-6">
                     <Title
@@ -53,11 +60,15 @@ export default function TugasShow({ auth }) {
                         <StepList step={tugases.step_6} />
                     </div>
                     <div className="flex justify-end gap-5">
-                        <PrimaryLink
+                        <PrimaryButton
                             text="Detail Proyek"
-                            href={route("tugas.detail", tugases.id)}
+                            // href={route("tugas.detail", tugases.id)}
+                            disabled={!userKelompoks}
+                            onClick={() =>
+                                handleDetailOnClick(userKelompoks.id)
+                            }
                         />
-                        <PrimaryLink text="Hasil Proyek" />
+                        {/* <PrimaryLink text="Hasil Proyek" /> */}
                     </div>
                 </div>
             </TugasShowTemplate>

@@ -2,16 +2,11 @@ import DeleteLink from "@/Components/General/atoms/DeleteLink";
 import Description from "@/Components/General/atoms/Description";
 import PrimaryLink from "@/Components/General/atoms/PrimaryLink";
 import Title from "@/Components/General/atoms/Title";
-import AboutList from "@/Components/Landing/molecules/AboutList";
-import MateriCover from "@/Components/Materi/atoms/MaterCover";
-import MateriGuruArticle from "@/Components/Materi/molecules/MateriGuruArticle";
 import StepList from "@/Components/Tugas/atoms/StepList";
 import DetailTugas from "@/Components/Tugas/molecules/DetailTugas";
 import TugasShowTemplate from "@/Components/Tugas/template/TugasShowTemplate";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { checkDeadline } from "@/utils/checkDeadline";
-import { formatFullDate } from "@/utils/formatFullDate";
-import { Icon } from "@iconify/react";
 import { usePage } from "@inertiajs/react";
 
 export default function TugasShow({ auth }) {
@@ -33,6 +28,7 @@ export default function TugasShow({ auth }) {
                     classes={tugases.classes.name}
                     tugasId={tugases.id}
                     classId={tugases.class_id}
+                    route={route("kelompok-guru.index")}
                 />
                 <div className="space-y-6">
                     <Title
@@ -55,7 +51,10 @@ export default function TugasShow({ auth }) {
                             text="Detail Proyek"
                             href={route("tugas-guru.detail", tugases.id)}
                         />
-                        <PrimaryLink text="Hasil Proyek" />
+                        <PrimaryLink
+                            text="Hasil Proyek"
+                            href={route("tugas-guru.hasil", tugases.id)}
+                        />
                     </div>
                     <hr className="bg-primary-100 h-1" />
                     <div className="flex justify-end gap-5">

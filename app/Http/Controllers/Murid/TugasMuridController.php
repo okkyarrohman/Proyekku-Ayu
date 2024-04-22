@@ -83,6 +83,7 @@ class TugasMuridController extends Controller
         $answers = TugasAnswer::create([
             'tugas_id' => $request->tugas_id,
             'user_id' => Auth::user()->id,
+            'kelompok_id' => $request->kelompok_id,
             'answer_1' => $request->answer_1,
             'answer_3' => $answer3Name,
             'answer_4' => $answer4Name,

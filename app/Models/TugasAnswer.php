@@ -14,6 +14,7 @@ class TugasAnswer extends Model
     protected $fillable = [
         'tugas_id',
         'user_id',
+        'kelompok_id',
         'answer_1',
         // 'answer_2',
         'answer_3',
@@ -28,5 +29,9 @@ class TugasAnswer extends Model
 
     public function answer_dates() {
         return $this->hasOne(TugasAnswerDate::class, 'answer_id', 'id');
+    }
+
+    public function kelompoks() {
+        return $this->belongsTo(Kelompok::class, 'kelompok_id', 'id');
     }
 }

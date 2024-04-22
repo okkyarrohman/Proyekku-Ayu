@@ -40,9 +40,9 @@ export const guruSidebarItems = [
     },
     {
         name: "Laporan",
-        link: "#",
+        link: route("laporan.guru"),
         icon: "streamline:graph-bar-increase-solid",
-        url: "#",
+        url: "/guru/laporan",
     },
     {
         name: "Pengaturan",

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('tugas_id');
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('kelompok_id');
             $table->longText('answer_1')->nullable();
             // $table->longText('answer_2')->nullable();
             $table->longText('answer_3')->nullable();
@@ -25,6 +26,7 @@ return new class extends Migration
 
             $table->foreign('tugas_id')->references('id')->on('tugases');
             $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('kelompok_id')->references('id')->on('kelompoks');
         });
     }
 
