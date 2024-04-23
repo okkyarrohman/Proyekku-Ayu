@@ -21,6 +21,10 @@ class HasilBelajarGuruController extends Controller
         $searchMapel = $request->input('searchMapel');
         $searchClass = $request->input('searchClass');
 
+        $mapels = MataPelajaran::all();
+
+        $classes = Classes::all();
+
         $hasils = HasilBelajar::with(['users', 'classes', 'mapels'])
             ->when($searchClass, function ($query) use ($searchClass) {
                 $query->where('class_id', 'like', '%' . $searchClass . '%');
@@ -30,7 +34,7 @@ class HasilBelajarGuruController extends Controller
             })
             ->get();
 
-        return Inertia::render('Guru/Laporan/HasilBelajar/HasilBelajarIndex', compact('hasils'));
+        return Inertia::render('Guru/Laporan/HasilBelajar/HasilBelajarIndex', compact('hasils', 'mapels', 'classes'));
     }
 
     /**

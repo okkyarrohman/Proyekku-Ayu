@@ -21,6 +21,10 @@ class AbsensiGuruController extends Controller
         $searchClass = $request->input('searchClass');
         $searchMapel = $request->input('searchMapel');
 
+        $mapels = MataPelajaran::all();
+
+        $classes = Classes::all();
+
         $absens = Absensi::with(['classes', 'mapels', 'user_presents'])
             ->when($searchClass, function ($query) use ($searchClass) {
                 $query->where('class_id', 'like', '%' . $searchClass . '%');
@@ -31,7 +35,7 @@ class AbsensiGuruController extends Controller
             ->orderBy('date', 'asc')
             ->get();
 
-        return Inertia::render('Guru/Laporan/Absensi/AbsensiIndex', compact('absens'));
+        return Inertia::render('Guru/Laporan/Absensi/AbsensiIndex', compact('absens', 'classes', 'mapels'));
     }
 
     /**
