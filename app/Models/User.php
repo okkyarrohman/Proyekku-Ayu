@@ -52,4 +52,8 @@ class User extends Authenticatable
     public function members() {
         return $this->hasMany(KelompokUser::class, 'user_id', 'id');
     }
+
+    public function classes() {
+        return $this->belongsTo(Classes::class, 'class_id', 'id');
+    }
 }

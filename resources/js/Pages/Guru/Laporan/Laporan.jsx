@@ -1,5 +1,4 @@
 import CardMenuImage from "@/Components/General/molecules/CardMenuImage";
-import CardMenuItem from "@/Components/General/molecules/CardMenuItem";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 
 export default function Laporan({ auth }) {

@@ -118,9 +118,20 @@ Route::group(['middleware' => 'role:murid'], function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::inertia('/pengaturan', 'Pengaturan/Pengaturan')->name('pengaturan.index');
+    Route::prefix('pengaturan')->group(function () {
+        Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+        Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::patch('/profile/edit/{id}', [ProfileController::class, 'update'])->name('profile.update');
+        Route::inertia('/panduan', 'Pengaturan/Panduan/PanduanShow')->name('panduan.show');
+        Route::inertia('/panduan/detail', 'Pengaturan/Panduan/PanduanDetail')->name('panduan.detail');
+    });
 });
+
+// Route::middleware('auth')->group(function () {
+//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+// });
 
 require __DIR__.'/auth.php';
