@@ -19,9 +19,9 @@ export const muridSidebarItems = [
     },
     {
         name: "Pengaturan",
-        link: route("pengaturan.murid"),
+        link: route("pengaturan.index"),
         icon: "fa6-solid:gear",
-        url: "/murid/pengaturan",
+        url: "/pengaturan",
     },
 ];
 
@@ -46,9 +46,9 @@ export const guruSidebarItems = [
     },
     {
         name: "Pengaturan",
-        link: "#",
+        link: route("pengaturan.index"),
         icon: "fa6-solid:gear",
-        url: "#",
+        url: "/pengaturan",
     },
 ];
 
@@ -67,8 +67,8 @@ export const adminSidebarItems = [
     },
     {
         name: "Pengaturan",
-        link: "#",
+        link: route("pengaturan.index"),
         icon: "fa6-solid:gear",
-        url: "#",
+        url: "/pengaturan",
     },
 ];

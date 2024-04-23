@@ -2,11 +2,13 @@
 
 use App\Http\Controllers\Admin\MataPelajaranAdminController;
 use App\Http\Controllers\Admin\UserAdminController;
+use App\Http\Controllers\Guru\AbsensiGuruController;
 use App\Http\Controllers\Guru\HasilBelajarGuruController;
 use App\Http\Controllers\Guru\KelompokGuruController;
 use App\Http\Controllers\Guru\MateriGuruController;
 use App\Http\Controllers\Guru\TugasGuruController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Murid\AbsensiMuridController;
 use App\Http\Controllers\Murid\HasilBelajarMuridController;
 use App\Http\Controllers\Murid\KelompokMuridController;
 use App\Http\Controllers\Murid\MateriMuridController;
@@ -83,7 +85,9 @@ Route::group(['middleware' => 'role:guru'], function () {
         Route::prefix('laporan')->group(function () {
             Route::resources([
                 'hasil-belajar-guru' => HasilBelajarGuruController::class,
+                'absensi-guru' => AbsensiGuruController::class
             ]);
+            Route::delete('/absensi-guru/{presentId}/delete', [AbsensiGuruController::class, 'destroyPresent'])->name('absensi-guru.destroyPresent');
         });
     });
 });
@@ -106,6 +110,7 @@ Route::group(['middleware' => 'role:murid'], function () {
         Route::prefix('laporan')->group(function () {
             Route::resources([
                 'hasil-belajar' => HasilBelajarMuridController::class,
+                'absensi' => AbsensiMuridController::class
             ]);
         });
         Route::inertia('/pengaturan', 'Pengaturan/Pengaturan')->name('pengaturan.murid');
@@ -113,9 +118,20 @@ Route::group(['middleware' => 'role:murid'], function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::inertia('/pengaturan', 'Pengaturan/Pengaturan')->name('pengaturan.index');
+    Route::prefix('pengaturan')->group(function () {
+        Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+        Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::patch('/profile/edit/{id}', [ProfileController::class, 'update'])->name('profile.update');
+        Route::inertia('/panduan', 'Pengaturan/Panduan/PanduanShow')->name('panduan.show');
+        Route::inertia('/panduan/detail', 'Pengaturan/Panduan/PanduanDetail')->name('panduan.detail');
+    });
 });
+
+// Route::middleware('auth')->group(function () {
+//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+// });
 
 require __DIR__.'/auth.php';

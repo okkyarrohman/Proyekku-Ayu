@@ -11,11 +11,12 @@ import TableRow from "@/Components/General/atoms/TableRow";
 import TableShowButton from "@/Components/General/atoms/TableShowButton";
 import DropdownField from "@/Components/General/molecules/DropdownField";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+import { formatDate } from "@/utils/formatDate";
 import { router, usePage } from "@inertiajs/react";
 import { useState } from "react";
 
-export default function HasilBelajarIndex({ auth }) {
-    const { hasils, mapels, classes } = usePage().props;
+export default function AbsensiIndex({ auth }) {
+    const { absens, classes, mapels } = usePage().props;
 
     const [search, setSearch] = useState({
         searchMapel: "",
@@ -36,21 +37,20 @@ export default function HasilBelajarIndex({ auth }) {
         );
     };
 
-    console.log(hasils);
+    console.log(absens);
 
     const tableHeads = [
         "No",
+        "Tanggal",
         "Kelas",
-        "Nama",
         "Mata Pelajaran",
-        "Nilai",
-        "Indeks",
+        "Pertemuan Ke",
         "Opsi",
         "",
     ];
 
     return (
-        <AuthenticatedLayout authUser={auth.user} title="Hasil Belajar">
+        <AuthenticatedLayout authUser={auth.user} title="Jurnal Kehadiran">
             <div className="flex justify-between mb-6 items-center">
                 <div className="flex items-center gap-5">
                     <FilterLabel label="Kelas" />
@@ -112,31 +112,30 @@ export default function HasilBelajarIndex({ auth }) {
             <div className="mb-6 ml-auto w-fit">
                 <PrimaryLink
                     text="Tambah Data"
-                    href={route("hasil-belajar-guru.create")}
+                    href={route("absensi-guru.create")}
                 />
             </div>
             <TableContainer>
                 <TableHead datas={tableHeads} />
                 <TableBody>
-                    {hasils.map((hasil, index) => {
+                    {absens.map((absen, index) => {
                         return (
                             <TableRow>
                                 <TableData children={index + 1} />
-                                <TableData children={hasil.classes.name} />
-                                <TableData children={hasil.users.name} />
-                                <TableData children={hasil.mapels.name} />
-                                <TableData children={hasil.grade} />
-                                <TableData children={hasil.grade_index} />
+                                <TableData children={formatDate(absen.date)} />
+                                <TableData children={absen.classes.name} />
+                                <TableData children={absen.mapels.name} />
+                                <TableData children={absen.meeting} />
                                 <TableData
                                     children={
                                         <TableActionButton
                                             linkEdit={route(
-                                                "hasil-belajar-guru.edit",
-                                                hasil.id
+                                                "absensi-guru.edit",
+                                                absen.id
                                             )}
                                             linkDelete={route(
-                                                "hasil-belajar-guru.destroy",
-                                                hasil.id
+                                                "absensi-guru.destroy",
+                                                absen.id
                                             )}
                                         />
                                     }
@@ -145,8 +144,8 @@ export default function HasilBelajarIndex({ auth }) {
                                     children={
                                         <TableShowButton
                                             linkShow={route(
-                                                "hasil-belajar-guru.show",
-                                                hasil.id
+                                                "absensi-guru.show",
+                                                absen.id
                                             )}
                                         />
                                     }

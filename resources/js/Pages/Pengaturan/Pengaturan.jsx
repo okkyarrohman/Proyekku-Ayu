@@ -1,17 +1,17 @@
-import CardMenuItem from "@/Components/General/molecules/CardMenuItem";
+import CardMenuImage from "@/Components/General/molecules/CardMenuImage";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 
 export default function Pengaturan({ auth }) {
     const menuItems = [
         {
             title: "Pengaturan Akun",
-            link: route("materi.index"),
-            icon: "heroicons:user-solid",
+            link: route("profile.show"),
+            img: "/assets/cartoon1-image.png",
         },
         {
-            title: "Panduan Aplikasi",
-            link: "",
-            icon: "material-symbols:help",
+            title: "Penggunaan Aplikasi",
+            link: route("panduan.show"),
+            img: "/assets/cartoon2-image.png",
         },
     ];
 
@@ -20,11 +20,11 @@ export default function Pengaturan({ auth }) {
             <section className="grid lg:grid-cols-2 grid-cols-1 lg:gap-16 gap-8">
                 {menuItems.map((menu, index) => {
                     return (
-                        <CardMenuItem
+                        <CardMenuImage
                             key={index}
                             title={menu.title}
                             link={menu.link}
-                            icon={menu.icon}
+                            img={menu.img}
                         />
                     );
                 })}

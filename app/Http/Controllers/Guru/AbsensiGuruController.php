@@ -3,38 +3,39 @@
 namespace App\Http\Controllers\Guru;
 
 use App\Http\Controllers\Controller;
+use App\Models\Absensi;
+use App\Models\AbsensiUser;
 use App\Models\Classes;
-use App\Models\HasilBelajar;
 use App\Models\MataPelajaran;
-use App\Models\Tugas;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class HasilBelajarGuruController extends Controller
+class AbsensiGuruController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
-        $searchMapel = $request->input('searchMapel');
         $searchClass = $request->input('searchClass');
+        $searchMapel = $request->input('searchMapel');
 
         $mapels = MataPelajaran::all();
 
         $classes = Classes::all();
 
-        $hasils = HasilBelajar::with(['users', 'classes', 'mapels'])
+        $absens = Absensi::with(['classes', 'mapels', 'user_presents'])
             ->when($searchClass, function ($query) use ($searchClass) {
                 $query->where('class_id', 'like', '%' . $searchClass . '%');
             })
             ->when($searchMapel, function ($query) use ($searchMapel) {
                 $query->where('mapel_id', 'like', '%' . $searchMapel . '%');
             })
+            ->orderBy('date', 'asc')
             ->get();
 
-        return Inertia::render('Guru/Laporan/HasilBelajar/HasilBelajarIndex', compact('hasils', 'mapels', 'classes'));
+        return Inertia::render('Guru/Laporan/Absensi/AbsensiIndex', compact('absens', 'classes', 'mapels'));
     }
 
     /**
@@ -42,15 +43,11 @@ class HasilBelajarGuruController extends Controller
      */
     public function create()
     {
-        $tugases = Tugas::all();
-
         $mapels = MataPelajaran::all();
 
         $classes = Classes::all();
 
-        $users = User::where('role', 'murid')->get();
-
-        return Inertia::render('Guru/Laporan/HasilBelajar/HasilBelajarCreate', compact('tugases', 'mapels', 'classes', 'users'));
+        return Inertia::render('Guru/Laporan/Absensi/AbsensiCreate', compact('mapels', 'classes'));
     }
 
     /**
@@ -58,17 +55,14 @@ class HasilBelajarGuruController extends Controller
      */
     public function store(Request $request)
     {
-        HasilBelajar::create([
+        Absensi::create([
+            'date' => $request->date,
             'class_id' => $request->class_id,
-            'user_id' => $request->user_id,
             'mapel_id' => $request->mapel_id,
-            'grade' => $request->grade,
-            'grade_index' => $request->grade_index,
             'meeting' => $request->meeting,
-            'detail' => $request->detail
         ]);
 
-        return to_route('hasil-belajar-guru.index');
+        return to_route('absensi-guru.index');
     }
 
     /**
@@ -76,15 +70,13 @@ class HasilBelajarGuruController extends Controller
      */
     public function show(string $id)
     {
-        $hasils = HasilBelajar::where('id', $id)->with(['users', 'classes', 'mapels'])->first();
-
-        $mapels = MataPelajaran::all();
-
-        $classes = Classes::all();
+        $absens = Absensi::where('id', $id)->with(['classes', 'mapels', 'user_presents.users'])->first();
 
         $users = User::where('role', 'murid')->get();
 
-        return Inertia::render('Guru/Laporan/HasilBelajar/HasilBelajarShow', compact('hasils', 'mapels', 'classes', 'users'));
+        $absenPresents = AbsensiUser::where('absen_id', $id)->with(['absens.mapels', 'absens.classes', 'users'])->get();
+
+        return Inertia::render('Guru/Laporan/Absensi/AbsensiShow', compact('absens', 'absenPresents', 'users'));
     }
 
     /**
@@ -92,15 +84,13 @@ class HasilBelajarGuruController extends Controller
      */
     public function edit(string $id)
     {
-        $hasils = HasilBelajar::where('id', $id)->with(['users', 'classes', 'mapels'])->first();
+        $absens = Absensi::where('id', $id)->first();
 
         $mapels = MataPelajaran::all();
 
         $classes = Classes::all();
 
-        $users = User::where('role', 'murid')->get();
-
-        return Inertia::render('Guru/Laporan/HasilBelajar/HasilBelajarEdit', compact('hasils', 'mapels', 'classes', 'users'));
+        return Inertia::render('Guru/Laporan/Absensi/AbsensiEdit', compact('absens', 'mapels', 'classes'));
     }
 
     /**
@@ -108,13 +98,13 @@ class HasilBelajarGuruController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $hasils = HasilBelajar::findOrFail($id);
+        $absens = Absensi::findOrFail($id);
 
-        $hasilsUpdate = $request->all();
+        $absensUpdate = $request->all();
 
-        $hasils->update($hasilsUpdate);
+        $absens->update($absensUpdate);
 
-        return to_route('hasil-belajar-guru.index');
+        return to_route('absensi-guru.index');
     }
 
     /**
@@ -122,10 +112,19 @@ class HasilBelajarGuruController extends Controller
      */
     public function destroy(string $id)
     {
-        $hasils = HasilBelajar::findOrFail($id);
+        $absens = Absensi::findOrFail($id);
 
-        $hasils->delete();
+        $absens->delete();
 
-        return to_route('hasil-belajar-guru.index');
+        return to_route('absensi-guru.index');
+    }
+
+    public function destroyPresent($presentId)
+    {
+        $absenPresents = AbsensiUser::findOrFail($presentId);
+
+        $absenPresents->delete();
+
+        return redirect()->back();
     }
 }

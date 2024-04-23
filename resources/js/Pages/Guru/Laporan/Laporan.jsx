@@ -1,5 +1,4 @@
 import CardMenuImage from "@/Components/General/molecules/CardMenuImage";
-import CardMenuItem from "@/Components/General/molecules/CardMenuItem";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 
 export default function Laporan({ auth }) {
@@ -11,7 +10,7 @@ export default function Laporan({ auth }) {
         },
         {
             title: "Jurnal Kehadiran",
-            link: "",
+            link: route("absensi-guru.index"),
             img: "/assets/cartoon2-image.png",
         },
     ];
