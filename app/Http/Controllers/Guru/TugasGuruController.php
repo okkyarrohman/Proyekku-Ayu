@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Guru;
 
 use App\Http\Controllers\Controller;
 use App\Models\Classes;
+use App\Models\Notifikasi;
 use App\Models\Tugas;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
@@ -51,7 +53,7 @@ class TugasGuruController extends Controller
             $cover->move(storage_path('app/public/tugas/cover'), $coverName);
         };
 
-        Tugas::create([
+        $tugases = Tugas::create([
             'name' => $request->name,
             'desc' => $request->desc,
             'cover' => $coverName,
@@ -69,6 +71,12 @@ class TugasGuruController extends Controller
             'desc_5' => $request->desc_5,
             'step_6' => $request->step_6,
             'desc_6' => $request->desc_6,
+        ]);
+
+        Notifikasi::create([
+            'message' => Auth::user()->name . ' membuat tugas baru untuk anda dengan judul "' . $request->name . '"',
+            'from' => Auth::user()->role,
+            'tugas_id' => $tugases->id,
         ]);
 
         return to_route('tugas-guru.index');

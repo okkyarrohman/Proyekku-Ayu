@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Classes;
 use App\Models\MataPelajaran;
 use App\Models\Materi;
+use App\Models\Notifikasi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
@@ -69,13 +71,19 @@ class MateriGuruController extends Controller
             $file->move(storage_path('app/public/materi/file'), $fileName);
         };
 
-        Materi::create([
+        $materis = Materi::create([
             'name' => $request->name,
             'desc' => $request->desc,
             'cover' => $coverName,
             'file' => $fileName,
             'link_video' => $request->link_video,
             'mapel_id' => $request->mapel_id
+        ]);
+
+        Notifikasi::create([
+            'message' => Auth::user()->name . ' membuat materi baru untuk anda dengan judul "' . $request->name . '"',
+            'from' => Auth::user()->role,
+            'materi_id' => $materis->id,
         ]);
 
         return to_route('materi-guru.index');

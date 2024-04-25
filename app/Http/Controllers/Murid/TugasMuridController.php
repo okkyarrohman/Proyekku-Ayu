@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Murid;
 use App\Http\Controllers\Controller;
 use App\Models\Kelompok;
 use App\Models\KelompokUser;
+use App\Models\Notifikasi;
 use App\Models\Tugas;
 use App\Models\TugasAnswer;
 use App\Models\TugasAnswerDate;
@@ -99,6 +100,21 @@ class TugasMuridController extends Controller
             'date_4' => $request->date_4,
         ]);
 
+        if ($request->answer_1 && $answer3Name && $answer4Name && $answer5Name && $answer6Name &&
+        $request->date_1 && $request->date_2 && $request->date_3 && $request->date_4) {
+            Notifikasi::create([
+                'message' => Auth::user()->name . ' telah menyelesaikan tugas dengan judul "' . Tugas::where('id', $answers->tugas_id)->first()->name . '"',
+                'from' => Auth::user()->role,
+                'tugas_id' => $answers->tugas_id,
+            ]);
+        } else {
+            Notifikasi::create([
+                'message' => Auth::user()->name . ' mulai mengerjakan tugas dengan judul "' . Tugas::where('id', $answers->tugas_id)->first()->name . '"',
+                'from' => Auth::user()->role,
+                'tugas_id' => $answers->tugas_id,
+            ]);
+        }
+
         return to_route('tugas.index');
     }
 
@@ -186,6 +202,15 @@ class TugasMuridController extends Controller
                 'date_4' => $request->date_4,
             ]
         );
+
+        if ($request->answer_1 && $answer3Name && $answer4Name && $answer5Name && $answer6Name &&
+        $request->date_1 && $request->date_2 && $request->date_3 && $request->date_4) {
+            Notifikasi::create([
+                'message' => Auth::user()->name . ' telah menyelesaikan tugas dengan judul "' . Tugas::where('id', $answers->tugas_id)->first()->name . '"',
+                'from' => Auth::user()->role,
+                'tugas_id' => $answers->tugas_id,
+            ]);
+        }
 
         return to_route('tugas.index');
     }
