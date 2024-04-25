@@ -15,6 +15,7 @@ class Notifikasi extends Model
         'message',
         'from',
         'tugas_id',
-        'materi_id'
+        'materi_id',
+        'class_id',
     ];
 }

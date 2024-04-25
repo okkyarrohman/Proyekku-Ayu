@@ -9,6 +9,7 @@ use App\Models\MataPelajaran;
 use App\Models\Tugas;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class HasilBelajarGuruController extends Controller
@@ -44,7 +45,7 @@ class HasilBelajarGuruController extends Controller
     {
         $tugases = Tugas::all();
 
-        $mapels = MataPelajaran::all();
+        $mapels = MataPelajaran::where('guru_id', Auth::user()->id)->get();
 
         $classes = Classes::all();
 
@@ -94,7 +95,7 @@ class HasilBelajarGuruController extends Controller
     {
         $hasils = HasilBelajar::where('id', $id)->with(['users', 'classes', 'mapels'])->first();
 
-        $mapels = MataPelajaran::all();
+        $mapels = MataPelajaran::where('guru_id', Auth::user()->id)->get();
 
         $classes = Classes::all();
 

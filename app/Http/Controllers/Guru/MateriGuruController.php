@@ -47,7 +47,7 @@ class MateriGuruController extends Controller
      */
     public function create()
     {
-        $mapels = MataPelajaran::all();
+        $mapels = MataPelajaran::where('guru_id', Auth::user()->id)->get();
 
         return Inertia::render('Guru/RuangProyek/Materi/MateriCreate', compact('mapels'));
     }
@@ -80,10 +80,13 @@ class MateriGuruController extends Controller
             'mapel_id' => $request->mapel_id
         ]);
 
+        $classId = $materis->mapels->class_id;
+
         Notifikasi::create([
             'message' => Auth::user()->name . ' membuat materi baru untuk anda dengan judul "' . $request->name . '"',
             'from' => Auth::user()->role,
             'materi_id' => $materis->id,
+            'class_id' => $classId
         ]);
 
         return to_route('materi-guru.index');
@@ -106,7 +109,7 @@ class MateriGuruController extends Controller
     {
         $materis = Materi::where('id', $id)->first();
 
-        $mapels = MataPelajaran::all();
+        $mapels = MataPelajaran::where('guru_id', Auth::user()->id)->get();
 
         return Inertia::render('Guru/RuangProyek/Materi/MateriEdit', compact('materis', 'mapels'));
     }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Murid;
 use App\Http\Controllers\Controller;
 use App\Models\Notifikasi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class NotifikasiMuridController extends Controller
@@ -14,7 +15,7 @@ class NotifikasiMuridController extends Controller
      */
     public function index()
     {
-        $notifikasis = Notifikasi::where('from', 'guru')->get();
+        $notifikasis = Notifikasi::where('from', 'guru')->where('class_id', Auth::user()->class_id)->get();
 
         return Inertia::render('Murid/Notifikasi/NotifikasiIndex', compact('notifikasis'));
     }

@@ -77,6 +77,7 @@ class TugasGuruController extends Controller
             'message' => Auth::user()->name . ' membuat tugas baru untuk anda dengan judul "' . $request->name . '"',
             'from' => Auth::user()->role,
             'tugas_id' => $tugases->id,
+            'class_id' => $request->class_id
         ]);
 
         return to_route('tugas-guru.index');

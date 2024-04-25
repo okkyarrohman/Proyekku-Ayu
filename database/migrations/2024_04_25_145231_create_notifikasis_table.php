@@ -17,6 +17,7 @@ return new class extends Migration
             $table->enum('from', ['murid', 'guru', 'admin']);
             $table->string('tugas_id')->nullable();
             $table->string('materi_id')->nullable();
+            $table->string('class_id')->nullable();
             $table->timestamps();
         });
     }
