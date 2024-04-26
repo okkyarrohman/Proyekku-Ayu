@@ -6,7 +6,7 @@ export default function TugasCard({ cover, desc, link, status }) {
     return (
         <div className="bg-primary-600 rounded-xl p-6 shadow-lg space-y-6">
             <Title
-                title={status}
+                title={status ? "Proyek Berakhir" : "Proyek Berlangsung"}
                 size="text-xl"
                 weight="font-semibold"
                 color="text-black"

@@ -37,7 +37,7 @@ class MateriGuruController extends Controller
 
         $classes = Classes::all();
 
-        $mapels = MataPelajaran::all();
+        $mapels = MataPelajaran::where('guru_id', Auth::user()->id)->get();
 
         return Inertia::render('Guru/RuangProyek/Materi/MateriIndex', compact('materis', 'classes', 'mapels'));
     }

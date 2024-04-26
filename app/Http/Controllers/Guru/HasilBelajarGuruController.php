@@ -22,7 +22,7 @@ class HasilBelajarGuruController extends Controller
         $searchMapel = $request->input('searchMapel');
         $searchClass = $request->input('searchClass');
 
-        $mapels = MataPelajaran::all();
+        $mapels = MataPelajaran::where('guru_id', Auth::user()->id)->get();
 
         $classes = Classes::all();
 

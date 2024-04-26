@@ -14,10 +14,13 @@ export default function TugasIndex({ auth }) {
         <AuthenticatedLayout authUser={auth.user} title="Ruang Proyek">
             <TugasIndexTemplate>
                 {tugases.map((tugas, index) => {
+                    const currentDate = new Date();
+                    const deadlineDate = new Date(tugas.deadline);
+
                     return (
                         <TugasCard
                             key={index}
-                            status="Proyek Berjalan"
+                            status={currentDate > deadlineDate}
                             cover={tugas.cover}
                             desc={tugas.desc}
                             link={route("tugas.show", tugas.id)}

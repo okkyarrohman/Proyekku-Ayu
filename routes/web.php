@@ -119,6 +119,7 @@ Route::group(['middleware' => 'role:murid'], function () {
                 'hasil-belajar' => HasilBelajarMuridController::class,
                 'absensi' => AbsensiMuridController::class
             ]);
+            Route::get('/absensi/{id}/hadir', [AbsensiMuridController::class, 'hadir'])->middleware('auth')->name('absen.hadir');
         });
         Route::resources([
             'notifikasi' => NotifikasiMuridController::class,
