@@ -29,7 +29,15 @@ export default function Navbar({ authUser }) {
                 <div className="flex justify-between lg:justify-end items-center gap-4 min-h-14">
                     <NavbarProfile name={authUser.name} img={authUser.photo} />
                     <div className="flex items-center gap-4">
-                        <Link href="">
+                        <Link
+                            href={
+                                authUser.role == "guru"
+                                    ? route("notifikasi-guru.index")
+                                    : authUser.role == "admin"
+                                    ? route("notifikasi-admin.index")
+                                    : route("notifikasi.index")
+                            }
+                        >
                             <Icon
                                 icon="bxs:bell"
                                 width="1.7rem"

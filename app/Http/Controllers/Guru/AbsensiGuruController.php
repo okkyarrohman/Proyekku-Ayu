@@ -9,6 +9,7 @@ use App\Models\Classes;
 use App\Models\MataPelajaran;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class AbsensiGuruController extends Controller
@@ -43,7 +44,7 @@ class AbsensiGuruController extends Controller
      */
     public function create()
     {
-        $mapels = MataPelajaran::all();
+        $mapels = MataPelajaran::where('guru_id', Auth::user()->id)->get();
 
         $classes = Classes::all();
 
@@ -86,7 +87,7 @@ class AbsensiGuruController extends Controller
     {
         $absens = Absensi::where('id', $id)->first();
 
-        $mapels = MataPelajaran::all();
+        $mapels = MataPelajaran::where('guru_id', Auth::user()->id)->get();
 
         $classes = Classes::all();
 

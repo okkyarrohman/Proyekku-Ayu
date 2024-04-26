@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MataPelajaran;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -39,6 +41,10 @@ class HomeController extends Controller
 
     public function admin()
     {
-        return Inertia::render('Admin/Dashboard');
+        $users = User::all();
+
+        $mapels = MataPelajaran::all();
+
+        return Inertia::render('Admin/Dashboard', compact('users', 'mapels'));
     }
 }

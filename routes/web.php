@@ -1,17 +1,20 @@
 <?php
 
 use App\Http\Controllers\Admin\MataPelajaranAdminController;
+use App\Http\Controllers\Admin\NotifikasiAdminController;
 use App\Http\Controllers\Admin\UserAdminController;
 use App\Http\Controllers\Guru\AbsensiGuruController;
 use App\Http\Controllers\Guru\HasilBelajarGuruController;
 use App\Http\Controllers\Guru\KelompokGuruController;
 use App\Http\Controllers\Guru\MateriGuruController;
+use App\Http\Controllers\Guru\NotifikasiGuruController;
 use App\Http\Controllers\Guru\TugasGuruController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Murid\AbsensiMuridController;
 use App\Http\Controllers\Murid\HasilBelajarMuridController;
 use App\Http\Controllers\Murid\KelompokMuridController;
 use App\Http\Controllers\Murid\MateriMuridController;
+use App\Http\Controllers\Murid\NotifikasiMuridController;
 use App\Http\Controllers\Murid\TugasMuridController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -61,6 +64,7 @@ Route::group(['middleware' => 'role:admin'], function () {
             });
             Route::resources([
                 'mapel-admin' => MataPelajaranAdminController::class,
+                'notifikasi-admin' => NotifikasiAdminController::class,
             ]);
         });
     });
@@ -89,6 +93,9 @@ Route::group(['middleware' => 'role:guru'], function () {
             ]);
             Route::delete('/absensi-guru/{presentId}/delete', [AbsensiGuruController::class, 'destroyPresent'])->name('absensi-guru.destroyPresent');
         });
+        Route::resources([
+            'notifikasi-guru' => NotifikasiGuruController::class,
+        ]);
     });
 });
 
@@ -113,7 +120,9 @@ Route::group(['middleware' => 'role:murid'], function () {
                 'absensi' => AbsensiMuridController::class
             ]);
         });
-        Route::inertia('/pengaturan', 'Pengaturan/Pengaturan')->name('pengaturan.murid');
+        Route::resources([
+            'notifikasi' => NotifikasiMuridController::class,
+        ]);
     });
 });
 
