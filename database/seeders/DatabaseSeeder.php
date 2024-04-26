@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
         Materi::factory(5)->create();
         Tugas::factory(3)->create();
         Kelompok::factory(5)->create();
-        Absensi::factory(2)->create();
+        Absensi::factory(1)->create();
         AbsensiUser::factory(5)->create();
     }
 }

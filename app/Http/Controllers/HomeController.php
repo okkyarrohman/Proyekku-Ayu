@@ -42,7 +42,12 @@ class HomeController extends Controller
 
         $mapels = MataPelajaran::all();
 
-        $absensis = Absensi::where('date', $currentDate)->with(['classes', 'mapels', 'user_presents'])->first();
+        $absensis = Absensi::where('date', $currentDate)
+                    ->with(['classes', 'mapels', 'user_presents'])
+                    ->whereHas('mapels', function ($query) {
+                        $query->where('guru_id', Auth::user()->id);
+                    })
+                    ->first();
 
         $tugases = Tugas::with(['classes', 'answers', 'kelompoks'])->latest()->take(4)->get();
 
@@ -58,8 +63,8 @@ class HomeController extends Controller
                     ->with(['classes', 'mapels', 'user_presents'])
                     ->first();
 
-        $tugases = Tugas::with(['classes', 'answers', 'kelompoks'])
-                    ->where('class_id', Auth::user()->id)
+        $tugases = Tugas::with(['classes', 'answers.kelompoks.members', 'kelompoks'])
+                    ->where('class_id', Auth::user()->class_id)
                     ->latest()->take(4)->get();
 
         $hasilBelajars = HasilBelajar::where('user_id', Auth::user()->id)

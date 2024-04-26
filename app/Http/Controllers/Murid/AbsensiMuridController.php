@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Murid;
 
 use App\Http\Controllers\Controller;
 use App\Models\Absensi;
+use App\Models\AbsensiUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -77,5 +78,15 @@ class AbsensiMuridController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function hadir(string $id)
+    {
+        AbsensiUser::create([
+            'absen_id' => $id,
+            'user_id' => Auth::user()->id
+        ]);
+
+        return to_route('dashboard.murid');
     }
 }

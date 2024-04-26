@@ -22,7 +22,7 @@ class AbsensiGuruController extends Controller
         $searchClass = $request->input('searchClass');
         $searchMapel = $request->input('searchMapel');
 
-        $mapels = MataPelajaran::all();
+        $mapels = MataPelajaran::where('guru_id', Auth::user()->id)->get();
 
         $classes = Classes::all();
 

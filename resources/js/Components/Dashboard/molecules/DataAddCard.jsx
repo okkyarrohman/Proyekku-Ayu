@@ -1,7 +1,7 @@
 import PrimaryLink from "@/Components/General/atoms/PrimaryLink";
 import { Icon } from "@iconify/react";
 
-export default function DataCard({ icon, item, itemLength, link }) {
+export default function DataAddCard({ icon, item, itemLength, link }) {
     return (
         <div className="rounded-xl bg-white p-16 flex justify-center items-center gap-10">
             <Icon icon={icon} width="5rem" className="text-primary-100" />

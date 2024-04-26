@@ -68,14 +68,13 @@ export default function TugasIndex({ auth }) {
             </div>
             <TugasIndexTemplate>
                 {tugases.map((tugas, index) => {
+                    const currentDate = new Date();
+                    const deadlineDate = new Date(tugas.deadline);
+
                     return (
                         <TugasCard
                             key={index}
-                            status={
-                                checkDeadline(tugas.deadline)
-                                    ? "Proyek Selesai"
-                                    : "Proyek Berlangsung"
-                            }
+                            status={currentDate > deadlineDate}
                             cover={tugas.cover}
                             desc={tugas.desc}
                             link={route("tugas-guru.show", tugas.id)}
