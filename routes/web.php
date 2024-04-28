@@ -48,7 +48,9 @@ Route::group(['middleware' => 'role:admin'], function () {
     Route::prefix('admin')->group(function () {
         // Start Your admin Routes From Here
         Route::get('/dashboard', [HomeController::class, 'admin'])->name('dashboard.admin');
-        Route::inertia('/data-master', 'Admin/DataMaster/DataMaster')->name('dataMaster.admin');
+        Route::get('/data-master', function () {
+            return Inertia::render('Admin/DataMaster/DataMaster');
+        })->name('dataMaster.admin');
         Route::prefix('data-master')->group(function () {
             Route::prefix('user-admin')->group(function () {
                 Route::inertia('/add', 'Admin/DataMaster/User/UserAdd')->name('user-admin.add');
@@ -144,4 +146,4 @@ Route::middleware('auth')->group(function () {
 //     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 // });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
