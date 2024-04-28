@@ -11,7 +11,9 @@ import { formatDate } from "@/utils/formatDate";
 import { usePage } from "@inertiajs/react";
 
 export default function AbsensiShow({ auth }) {
-    const { absens, absenPresents, users } = usePage().props;
+    const { absens, absenPresents, users, user_tests } = usePage().props;
+
+    console.log("tes", user_tests);
 
     const usersByClassId = users.filter(
         (user) => user.class_id == absens.class_id
@@ -33,6 +35,26 @@ export default function AbsensiShow({ auth }) {
 
     return (
         <AuthenticatedLayout authUser={auth.user} title="Jurnal Kehadiran">
+            <div className="mb-6 ml-auto w-fit flex items-center gap-4">
+                <a
+                    href={route("absensi-guru.exportExcel", [
+                        absens.class_id,
+                        absens.id,
+                    ])}
+                    className={`w-fit rounded-full bg-primary-100 hover:bg-primary-200 py-2 px-6 font-semibold text-white text-base block text-center`}
+                >
+                    Download Excel
+                </a>
+                <a
+                    href={route("absensi-guru.exportPdf", [
+                        absens.class_id,
+                        absens.id,
+                    ])}
+                    className={`w-fit rounded-full bg-primary-100 hover:bg-primary-200 py-2 px-6 font-semibold text-white text-base block text-center`}
+                >
+                    Download Pdf
+                </a>
+            </div>
             <TableContainer>
                 <TableHead datas={tableHeads} />
                 <TableBody>

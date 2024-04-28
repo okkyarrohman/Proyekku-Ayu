@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Guru;
 
+use App\Exports\AbsensiExport;
 use App\Http\Controllers\Controller;
 use App\Models\Absensi;
 use App\Models\AbsensiUser;
@@ -11,6 +12,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AbsensiGuruController extends Controller
 {
@@ -73,11 +75,13 @@ class AbsensiGuruController extends Controller
     {
         $absens = Absensi::where('id', $id)->with(['classes', 'mapels', 'user_presents.users'])->first();
 
+        $user_tests = User::where('role', 'murid')->where('class_id', $absens->class_id)->with(['absen_users.absens'])->get();
+
         $users = User::where('role', 'murid')->get();
 
         $absenPresents = AbsensiUser::where('absen_id', $id)->with(['absens.mapels', 'absens.classes', 'users'])->get();
 
-        return Inertia::render('Guru/Laporan/Absensi/AbsensiShow', compact('absens', 'absenPresents', 'users'));
+        return Inertia::render('Guru/Laporan/Absensi/AbsensiShow', compact('absens', 'absenPresents', 'users', 'user_tests'));
     }
 
     /**
@@ -127,5 +131,15 @@ class AbsensiGuruController extends Controller
         $absenPresents->delete();
 
         return redirect()->back();
+    }
+
+    public function exportPdf($classId, $absenId)
+    {
+        return Excel::download(new AbsensiExport($classId, $absenId), 'hasil_belajar.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
+    }
+
+    public function exportExcel($classId, $absenId)
+    {
+        return Excel::download(new AbsensiExport($classId, $absenId), 'hasil_belajar.xlsx', \Maatwebsite\Excel\Excel::XLSX);
     }
 }

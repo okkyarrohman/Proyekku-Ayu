@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Guru;
 
+use App\Exports\HasilBelajarExport;
 use App\Http\Controllers\Controller;
 use App\Models\Classes;
 use App\Models\HasilBelajar;
@@ -11,6 +12,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
+use Maatwebsite\Excel\Facades\Excel;
 
 class HasilBelajarGuruController extends Controller
 {
@@ -128,5 +130,15 @@ class HasilBelajarGuruController extends Controller
         $hasils->delete();
 
         return to_route('hasil-belajar-guru.index');
+    }
+
+    public function exportPdf($classId, $mapelId)
+    {
+        return Excel::download(new HasilBelajarExport($classId, $mapelId), 'hasil_belajar.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
+    }
+
+    public function exportExcel($classId, $mapelId)
+    {
+        return Excel::download(new HasilBelajarExport($classId, $mapelId), 'hasil_belajar.xlsx', \Maatwebsite\Excel\Excel::XLSX);
     }
 }
