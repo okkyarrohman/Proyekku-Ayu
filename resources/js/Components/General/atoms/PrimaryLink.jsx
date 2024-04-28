@@ -16,7 +16,7 @@ export default function PrimaryLink({
             className={
                 `w-${full ? "full" : "fit"} rounded-full ${
                     disabled
-                        ? "bg-primary-500"
+                        ? "bg-primary-500 cursor-default"
                         : "bg-primary-100 hover:bg-primary-200"
                 } py-2 px-6 font-semibold text-white text-base block text-center` +
                 className

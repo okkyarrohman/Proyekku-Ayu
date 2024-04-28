@@ -124,6 +124,7 @@ Route::group(['middleware' => 'role:murid'], function () {
                 'absensi' => AbsensiMuridController::class
             ]);
             Route::get('/absensi/{id}/hadir', [AbsensiMuridController::class, 'hadir'])->middleware('auth')->name('absen.hadir');
+            Route::post('/absensi/{id}/hadir', [AbsensiMuridController::class, 'hadir'])->middleware('auth')->name('absen.hadir');
         });
         Route::resources([
             'notifikasi' => NotifikasiMuridController::class,

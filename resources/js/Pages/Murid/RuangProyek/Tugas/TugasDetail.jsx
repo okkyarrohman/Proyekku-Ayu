@@ -9,6 +9,7 @@ import StepTab from "@/Components/Tugas/atoms/StepTab";
 import DetailStep from "@/Components/Tugas/molecules/DetailStep";
 import DetailStep2 from "@/Components/Tugas/molecules/DetailStep2";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+import { Icon } from "@iconify/react";
 import { useForm, usePage } from "@inertiajs/react";
 import { useState } from "react";
 
@@ -44,6 +45,14 @@ export default function TugasDetail({ auth }) {
         setStep(number);
     };
 
+    const handleNextOnClick = () => {
+        setStep(step + 1);
+    };
+
+    const handlePrevOnClick = () => {
+        setStep(step - 1);
+    };
+
     const handleOnSubmit = (e) => {
         e.preventDefault();
         answers
@@ -54,7 +63,7 @@ export default function TugasDetail({ auth }) {
     return (
         <AuthenticatedLayout authUser={auth.user} title="Ruang Proyek">
             <CreateTemplate title="DETAIL PROYEK">
-                <div className="rounded-t-xl flex w-fit">
+                <div className="lg:rounded-t-xl lg:flex hidden w-fit">
                     {[1, 2, 3, 4, 5, 6].map((stepNumber) => {
                         return (
                             <StepTab
@@ -67,7 +76,7 @@ export default function TugasDetail({ auth }) {
                 </div>
                 <form
                     onSubmit={handleOnSubmit}
-                    className="bg-primary-100 p-8 rounded-e-xl rounded-bl-xl space-y-6"
+                    className="bg-primary-100 lg:p-8 p-4 rounded-e-xl lg:rounded-tl-none rounded-tl-xl rounded-bl-xl space-y-6"
                 >
                     {step == 1 && (
                         <DetailStep
@@ -228,7 +237,37 @@ export default function TugasDetail({ auth }) {
                             />
                         </DetailStep>
                     )}
-                    <div className={`flex justify-end`}>
+                    <div
+                        className={`flex lg:justify-end justify-between items-center`}
+                    >
+                        <div className="flex items-center gap-4">
+                            {step != 1 && (
+                                <button
+                                    type="button"
+                                    className="rounded-full bg-white p-2"
+                                    onClick={handlePrevOnClick}
+                                >
+                                    <Icon
+                                        icon="ep:arrow-left-bold"
+                                        width="1.2rem"
+                                        className="text-primary-100"
+                                    />
+                                </button>
+                            )}
+                            {step != 6 && (
+                                <button
+                                    type="button"
+                                    className="rounded-full bg-white p-2"
+                                    onClick={handleNextOnClick}
+                                >
+                                    <Icon
+                                        icon="ep:arrow-right-bold"
+                                        width="1.2rem"
+                                        className="text-primary-100"
+                                    />
+                                </button>
+                            )}
+                        </div>
                         <SecondaryButton type="submit" text="Kirim" />
                     </div>
                 </form>

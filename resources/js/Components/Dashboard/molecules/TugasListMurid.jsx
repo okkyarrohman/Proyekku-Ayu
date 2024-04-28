@@ -12,7 +12,7 @@ export default function TugasListMurid({ desc, isDeadline, deadline, status }) {
     }
 
     return (
-        <div className="flex items-center justify-between gap-16">
+        <div className="flex items-center justify-between lg:gap-16 gap-6">
             <div>
                 <p className="font-semibold">
                     {isDeadline ? "Proyek Berakhir" : "Proyek Berlangsung"}

@@ -13,7 +13,7 @@ export default function PanduanShow({ auth }) {
 
     return (
         <AuthenticatedLayout authUser={auth.user} title="Penggunaan Aplikasi">
-            <section className="grid grid-cols-2 gap-10">
+            <section className="grid lg:grid-cols-2 grid-cols-1 gap-10">
                 <img
                     src={`/assets/guide-image.png`}
                     alt="Materi Cover"
