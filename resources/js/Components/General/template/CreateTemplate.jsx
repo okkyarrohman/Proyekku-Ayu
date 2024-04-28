@@ -4,7 +4,7 @@ export default function CreateTemplate({ children, title }) {
     return (
         <article className="bg-white">
             <BodyHeader title={title} />
-            <div className="lg:p-16 p-10">{children}</div>
+            <div className="lg:p-16 p-8">{children}</div>
         </article>
     );
 }

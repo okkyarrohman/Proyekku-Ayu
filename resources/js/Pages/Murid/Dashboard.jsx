@@ -3,6 +3,7 @@ import NoData from "@/Components/Dashboard/atoms/NoData";
 import WelcomeText from "@/Components/Dashboard/atoms/WelcomeText";
 import TugasList from "@/Components/Dashboard/molecules/TugasList";
 import TugasListMurid from "@/Components/Dashboard/molecules/TugasListMurid";
+import PrimaryLink from "@/Components/General/atoms/PrimaryLink";
 import SidebarLink from "@/Components/General/atoms/SidebarLink";
 import SidebarProfile from "@/Components/General/atoms/SidebarProfile";
 import Title from "@/Components/General/atoms/Title";
@@ -19,6 +20,10 @@ export default function Dashboard({ auth }) {
 
     const currentDate = new Date();
 
+    const userPresent = absensis.user_presents.find(
+        (present) => present.user_id == auth.user.id
+    );
+
     console.log("absensis", absensis);
     console.log("hasilBelajars", hasilBelajars);
     console.log("tugases", tugases);
@@ -26,7 +31,7 @@ export default function Dashboard({ auth }) {
     return (
         <AuthenticatedLayout authUser={auth.user} title="Dashboard">
             <WelcomeText user={auth.user.name} />
-            <div className="grid grid-cols-2 gap-20">
+            <div className="grid lg:grid-cols-2 grid-cols-1 lg:gap-20 gap-6">
                 <div className="space-y-6">
                     <div className="bg-primary-600 rounded-xl p-4 w-fit space-y-4">
                         <Title
@@ -35,10 +40,31 @@ export default function Dashboard({ auth }) {
                             align="text-center"
                         />
                         {absensis ? (
-                            <QRCode
-                                value={route("absen.hadir", absensis.id)}
-                                className="size-40 mx-auto"
-                            />
+                            <>
+                                <QRCode
+                                    value={route("absen.hadir", absensis.id)}
+                                    className="size-40 mx-auto"
+                                />
+                                <div className="w-fit mx-auto">
+                                    <PrimaryLink
+                                        disabled={userPresent}
+                                        method={userPresent ? "" : "POST"}
+                                        href={
+                                            userPresent
+                                                ? "#"
+                                                : route(
+                                                      "absen.hadir",
+                                                      absensis.id
+                                                  )
+                                        }
+                                        text={
+                                            userPresent
+                                                ? "Sudah Absen"
+                                                : "Saya Hadir"
+                                        }
+                                    />
+                                </div>
+                            </>
                         ) : (
                             <NoData text="Belum Ada Absensi" />
                         )}

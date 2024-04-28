@@ -18,7 +18,7 @@ export default function DetailStep2({
                 align="text-center"
                 weight="font-semibold"
             />
-            <div className="grid grid-cols-2 gap-x-12">
+            <div className="grid lg:grid-cols-2 grid-cols-1 gap-x-12">
                 <div>
                     <p className="text-white font-semibold text-xl">{step}</p>
                     <Description desc={desc} />
