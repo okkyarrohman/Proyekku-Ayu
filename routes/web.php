@@ -53,7 +53,9 @@ Route::group(['middleware' => 'role:admin'], function () {
         })->name('dataMaster.admin');
         Route::prefix('data-master')->group(function () {
             Route::prefix('user-admin')->group(function () {
-                Route::inertia('/add', 'Admin/DataMaster/User/UserAdd')->name('user-admin.add');
+                Route::get('/add', function () {
+                    return Inertia::render('Admin/DataMaster/User/UserAdd');
+                })->name('user-admin.add');
                 Route::get('/{role}', [UserAdminController::class, 'index'])->name('user-admin.index');
                 Route::get('/{role}/create', [UserAdminController::class, 'create'])->name('user-admin.create');
                 Route::post('/guru/create', [UserAdminController::class, 'storeGuru'])->name('user-admin.storeGuru');
@@ -77,7 +79,10 @@ Route::group(['middleware' => 'role:guru'], function () {
     Route::prefix('guru')->group(function () {
         // Start Your guru Routes From Here
         Route::get('/dashboard', [HomeController::class, 'guru'])->name('dashboard.guru');
-        Route::inertia('/ruang-proyek', 'Guru/RuangProyek/RuangProyek')->name('ruangProyek.guru');
+        Route::get('/ruang-proyek', function () {
+            return Inertia::render('Guru/RuangProyek/RuangProyek');
+        })->name('ruangProyek.guru');
+
         Route::prefix('ruang-proyek')->group(function () {
             Route::resources([
                 'materi-guru' => MateriGuruController::class,
@@ -87,7 +92,9 @@ Route::group(['middleware' => 'role:guru'], function () {
             Route::get('/tugas-guru/detail/{id}', [TugasGuruController::class, 'detail'])->name('tugas-guru.detail');
             Route::get('/tugas-guru/hasil/{id}', [TugasGuruController::class, 'hasil'])->name('tugas-guru.hasil');
         });
-        Route::inertia('/laporan', 'Guru/Laporan/Laporan')->name('laporan.guru');
+        Route::get('/laporan', function () {
+            return Inertia::render('Guru/Laporan/Laporan');
+        })->name('laporan.guru');
         Route::prefix('laporan')->group(function () {
             Route::resources([
                 'hasil-belajar-guru' => HasilBelajarGuruController::class,
@@ -106,7 +113,9 @@ Route::group(['middleware' => 'role:murid'], function () {
     Route::prefix('murid')->group(function () {
         // Start Your murid Routes From Here
         Route::get('/dashboard', [HomeController::class, 'murid'])->name('dashboard.murid');
-        Route::inertia('/ruang-proyek', 'Murid/RuangProyek/RuangProyek')->name('ruangProyek.murid');
+        Route::get('/ruang-proyek', function () {
+            return Inertia::render('Murid/RuangProyek/RuangProyek');
+        })->name('ruangProyek.murid');
         Route::prefix('ruang-proyek')->group(function () {
             Route::resources([
                 'materi' => MateriMuridController::class,
@@ -115,7 +124,9 @@ Route::group(['middleware' => 'role:murid'], function () {
             ]);
             Route::get('/tugas/detail/{id}', [TugasMuridController::class, 'detail'])->name('tugas.detail');
         });
-        Route::inertia('/laporan', 'Murid/Laporan/Laporan')->name('laporan.murid');
+        Route::get('/laporan', function () {
+            return Inertia::render('Murid/Laporan/Laporan');
+        })->name('laporan.murid');
         Route::prefix('laporan')->group(function () {
             Route::resources([
                 'hasil-belajar' => HasilBelajarMuridController::class,
@@ -130,13 +141,22 @@ Route::group(['middleware' => 'role:murid'], function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::inertia('/pengaturan', 'Pengaturan/Pengaturan')->name('pengaturan.index');
+    Route::get(
+        '/pengaturan',
+        function () {
+            return Inertia::render('Pengaturan/Pengaturan');
+        }
+    )->name('pengaturan.index');
     Route::prefix('pengaturan')->group(function () {
         Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
         Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::patch('/profile/edit/{id}', [ProfileController::class, 'update'])->name('profile.update');
-        Route::inertia('/panduan', 'Pengaturan/Panduan/PanduanShow')->name('panduan.show');
-        Route::inertia('/panduan/detail', 'Pengaturan/Panduan/PanduanDetail')->name('panduan.detail');
+        Route::get('/panduan', function () {
+            return Inertia::render('Pengaturan/Panduan/PanduanShow');
+        })->name('panduan.show');
+        Route::get('/panduan/detail', function () {
+            return Inertia::render('Pengaturan/Panduan/PanduanDetail');
+        })->name('panduan.detail');
     });
 });
 
