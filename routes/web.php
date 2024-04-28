@@ -92,6 +92,10 @@ Route::group(['middleware' => 'role:guru'], function () {
                 'absensi-guru' => AbsensiGuruController::class
             ]);
             Route::delete('/absensi-guru/{presentId}/delete', [AbsensiGuruController::class, 'destroyPresent'])->name('absensi-guru.destroyPresent');
+            Route::get('/export-pdf/hasil-belajar/{classId}/{mapelId}', [HasilBelajarGuruController::class, 'exportPdf'])->name('hasil-belajar-guru.exportPdf');
+            Route::get('/export-excel/hasil-belajar/{classId}/{mapelId}', [HasilBelajarGuruController::class, 'exportExcel'])->name('hasil-belajar-guru.exportExcel');
+            Route::get('/export-pdf/absensi/{classId}/{absenId}', [AbsensiGuruController::class, 'exportPdf'])->name('absensi-guru.exportPdf');
+            Route::get('/export-excel/absensi/{classId}/{absenId}', [AbsensiGuruController::class, 'exportExcel'])->name('absensi-guru.exportExcel');
         });
         Route::resources([
             'notifikasi-guru' => NotifikasiGuruController::class,

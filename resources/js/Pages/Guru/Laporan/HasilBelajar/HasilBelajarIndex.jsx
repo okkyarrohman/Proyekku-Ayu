@@ -109,7 +109,41 @@ export default function HasilBelajarIndex({ auth }) {
                 </div>
                 <PrimaryButton text="Search" onClick={handleSearchOnClick} />
             </div>
-            <div className="mb-6 ml-auto w-fit">
+            <div className="mb-6 ml-auto w-fit flex items-center gap-4">
+                <a
+                    href={
+                        search.searchClass && search.searchMapel
+                            ? route("hasil-belajar-guru.exportExcel", [
+                                  search.searchClass,
+                                  search.searchMapel,
+                              ])
+                            : "#"
+                    }
+                    className={`w-fit rounded-full ${
+                        search.searchClass && search.searchMapel
+                            ? "bg-primary-100 hover:bg-primary-200"
+                            : "bg-primary-400 cursor-default"
+                    }  py-2 px-6 font-semibold text-white text-base block text-center`}
+                >
+                    Download Excel
+                </a>
+                <a
+                    href={
+                        search.searchClass && search.searchMapel
+                            ? route("hasil-belajar-guru.exportPdf", [
+                                  search.searchClass,
+                                  search.searchMapel,
+                              ])
+                            : "#"
+                    }
+                    className={`w-fit rounded-full ${
+                        search.searchClass && search.searchMapel
+                            ? "bg-primary-100 hover:bg-primary-200"
+                            : "bg-primary-400 cursor-default"
+                    }  py-2 px-6 font-semibold text-white text-base block text-center`}
+                >
+                    Download Pdf
+                </a>
                 <PrimaryLink
                     text="Tambah Data"
                     href={route("hasil-belajar-guru.create")}

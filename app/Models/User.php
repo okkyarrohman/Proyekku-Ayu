@@ -56,4 +56,8 @@ class User extends Authenticatable
     public function classes() {
         return $this->belongsTo(Classes::class, 'class_id', 'id');
     }
+
+    public function absen_users() {
+        return $this->hasMany(AbsensiUser::class, 'user_id', 'id');
+    }
 }
