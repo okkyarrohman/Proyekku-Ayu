@@ -39,6 +39,12 @@ Route::get('/', function () {
     ]);
 });
 
+Route::get('/link', function () {
+    $target = '/home/eduhouse/eduhouse/storage/app/public';
+    $shortcut = '/home/eduhouse/public_html/storage';
+    symlink($target, $shortcut);
+});
+
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
