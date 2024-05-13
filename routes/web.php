@@ -40,8 +40,8 @@ Route::get('/', function () {
 });
 
 Route::get('/link', function () {
-    $target = '/home/eduhouse/eduhouse/storage/app/public';
-    $shortcut = '/home/eduhouse/public_html/storage';
+    $target = '/home/proyekku/proyekku/storage/app/public';
+    $shortcut = '/home/proyekku/public_html/storage';
     symlink($target, $shortcut);
 });
 
