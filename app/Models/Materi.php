@@ -17,6 +17,7 @@ class Materi extends Model
         'cover',
         'file',
         'link_video',
+        'embed_link',
         'mapel_id'
     ];
 

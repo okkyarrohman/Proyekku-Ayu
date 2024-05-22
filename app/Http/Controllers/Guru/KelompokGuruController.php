@@ -45,6 +45,7 @@ class KelompokGuruController extends Controller
         $analystIds = $request->filled('analysts') ? $request->analysts : [];
         $programmerIds = $request->filled('programmers') ? $request->programmers : [];
         $designerIds = $request->filled('designers') ? $request->designers : [];
+        $testingIds = $request->filled('testings') ? $request->testings : [];
 
         $kelompoks = Kelompok::create([
             'name' => $request->name,
@@ -53,7 +54,7 @@ class KelompokGuruController extends Controller
             'class_id' => $request->class_id
         ]);
 
-        if ($analystIds != [] && $designerIds != [] && $programmerIds != []) {
+        if ($analystIds != [] && $designerIds != [] && $programmerIds != [] && $testingIds) {
             foreach ($analystIds as $analyst_id) {
                 KelompokUser::create([
                     'kelompok_id' => $kelompoks->id,
@@ -73,6 +74,13 @@ class KelompokGuruController extends Controller
                     'kelompok_id' => $kelompoks->id,
                     'user_id' => $programmer_id,
                     'role' => 'programmer'
+                ]);
+            }
+            foreach ($testingIds as $testing_id) {
+                KelompokUser::create([
+                    'kelompok_id' => $kelompoks->id,
+                    'user_id' => $testing_id,
+                    'role' => 'testing'
                 ]);
             }
         }
@@ -105,8 +113,10 @@ class KelompokGuruController extends Controller
 
         $programmers = KelompokUser::where('kelompok_id', $id)->where('role', 'programmer')->get();
 
+        $testings = KelompokUser::where('kelompok_id', $id)->where('role', 'testing')->get();
+
         return Inertia::render('Guru/RuangProyek/Kelompok/KelompokEdit', compact(
-            'kelompoks', 'classes', 'users', 'analysts', 'designers', 'programmers'
+            'kelompoks', 'classes', 'users', 'analysts', 'designers', 'programmers', 'testings'
         ));
     }
 
@@ -118,6 +128,7 @@ class KelompokGuruController extends Controller
         $analystIds = $request->filled('analysts') ? $request->analysts : [];
         $programmerIds = $request->filled('programmers') ? $request->programmers : [];
         $designerIds = $request->filled('designers') ? $request->designers : [];
+        $testingIds = $request->filled('testings') ? $request->testings : [];
 
         $kelompoks = Kelompok::findOrFail($id);
 
@@ -181,6 +192,26 @@ class KelompokGuruController extends Controller
             KelompokUser::where('kelompok_id', $kelompoks->id)
                         ->where('user_id', $programmer_id)
                         ->where('role', 'programmer')
+                        ->delete();
+        }
+
+        // Update testings
+        $existingTestingIds = $kelompoks->members()->where('role', 'testing')->pluck('user_id')->toArray();
+        $newTestings = array_diff($testingIds, $existingTestingIds);
+        $testingsToRemove = array_diff($existingTestingIds, $testingIds);
+
+        foreach ($newTestings as $testing_id) {
+            KelompokUser::create([
+                'kelompok_id' => $kelompoks->id,
+                'user_id' => $testing_id,
+                'role' => 'testing'
+            ]);
+        }
+
+        foreach ($testingsToRemove as $testing_id) {
+            KelompokUser::where('kelompok_id', $kelompoks->id)
+                        ->where('user_id', $testing_id)
+                        ->where('role', 'testing')
                         ->delete();
         }
 

@@ -1,8 +1,6 @@
-import Description from "@/Components/General/atoms/Description";
 import FileInput from "@/Components/General/atoms/FileInput";
 import SecondaryButton from "@/Components/General/atoms/SecondaryButton";
 import TextAreaInput from "@/Components/General/atoms/TextAreaInput";
-import Title from "@/Components/General/atoms/Title";
 import InputDateTimeField from "@/Components/General/molecules/InputDateTimeField";
 import CreateTemplate from "@/Components/General/template/CreateTemplate";
 import StepTab from "@/Components/Tugas/atoms/StepTab";
@@ -23,6 +21,7 @@ export default function TugasDetail({ auth }) {
     );
 
     console.log(userKelompoks);
+    console.log(answers);
 
     const { data, setData, post, errors } = useForm({
         _method: answers ? "PATCH" : "POST",
@@ -238,7 +237,7 @@ export default function TugasDetail({ auth }) {
                         </DetailStep>
                     )}
                     <div
-                        className={`flex lg:justify-end justify-between items-center`}
+                        className={`flex lg:justify-end justify-between items-center gap-4`}
                     >
                         <div className="flex items-center gap-4">
                             {step != 1 && (
@@ -268,7 +267,38 @@ export default function TugasDetail({ auth }) {
                                 </button>
                             )}
                         </div>
-                        <SecondaryButton type="submit" text="Kirim" />
+                        {step == 1 && (
+                            <SecondaryButton type="submit" text="Kirim" />
+                        )}
+                        {step == 2 && answers?.answer_1 && (
+                            <SecondaryButton type="submit" text="Kirim" />
+                        )}
+                        {step == 3 &&
+                            answers?.answer_1 &&
+                            answers?.answer_dates?.date_1 && (
+                                <SecondaryButton type="submit" text="Kirim" />
+                            )}
+                        {step == 4 &&
+                            answers?.answer_1 &&
+                            answers?.answer_dates?.date_1 &&
+                            answers?.answer_3 && (
+                                <SecondaryButton type="submit" text="Kirim" />
+                            )}
+                        {step == 5 &&
+                            answers?.answer_1 &&
+                            answers?.answer_dates?.date_1 &&
+                            answers?.answer_3 &&
+                            answers?.answer_4 && (
+                                <SecondaryButton type="submit" text="Kirim" />
+                            )}
+                        {step == 6 &&
+                            answers?.answer_1 &&
+                            answers?.answer_dates?.date_1 &&
+                            answers?.answer_3 &&
+                            answers?.answer_4 &&
+                            answers?.answer_5 && (
+                                <SecondaryButton type="submit" text="Kirim" />
+                            )}
                     </div>
                 </form>
             </CreateTemplate>
