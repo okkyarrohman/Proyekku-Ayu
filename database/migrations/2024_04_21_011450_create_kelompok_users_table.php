@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('kelompok_id');
             $table->unsignedBigInteger('user_id');
-            $table->enum('role', ['analyst', 'programmer', 'designer']);
+            $table->enum('role', ['analyst', 'programmer', 'designer', 'testing']);
             $table->timestamps();
 
             $table->foreign('kelompok_id')->references('id')->on('kelompoks')->onDelete('cascade');

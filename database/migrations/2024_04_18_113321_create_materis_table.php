@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('cover');
             $table->string('file');
             $table->string('link_video');
+            $table->string('embed_link');
             $table->unsignedBigInteger('mapel_id');
             $table->timestamps();
 

@@ -10,6 +10,7 @@ use App\Models\Notifikasi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 
 class MateriGuruController extends Controller
@@ -77,6 +78,7 @@ class MateriGuruController extends Controller
             'cover' => $coverName,
             'file' => $fileName,
             'link_video' => $request->link_video,
+            'embed_link' => $this->extractVideoId($request->link_video),
             'mapel_id' => $request->mapel_id
         ]);
 
@@ -146,6 +148,8 @@ class MateriGuruController extends Controller
         $materisUpdate = $request->all();
         $materisUpdate['cover'] = $coverName;
         $materisUpdate['file'] = $fileName;
+        $materisUpdate['embed_link'] = $this->extractVideoId($request->link_video);
+
 
         $materis->update($materisUpdate);
 
@@ -165,5 +169,20 @@ class MateriGuruController extends Controller
         $materis->delete();
 
         return to_route('materi-guru.index');
+    }
+
+    public function extractVideoId($url)
+    {
+        $videoId = '';
+
+        if (Str::contains($url, 'youtu.be')) {
+            $videoId = Str::afterLast($url, '/');
+        }
+        else if (Str::contains($url, 'watch?v=')) {
+            $videoId = Str::after(Str::after($url, 'watch?v='), '/');
+            $videoId = Str::before($videoId, '&');
+        }
+
+        return $videoId;
     }
 }

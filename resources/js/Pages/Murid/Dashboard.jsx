@@ -1,17 +1,11 @@
 import LineChart from "@/Components/Dashboard/atoms/LineChart";
 import NoData from "@/Components/Dashboard/atoms/NoData";
 import WelcomeText from "@/Components/Dashboard/atoms/WelcomeText";
-import TugasList from "@/Components/Dashboard/molecules/TugasList";
 import TugasListMurid from "@/Components/Dashboard/molecules/TugasListMurid";
 import PrimaryLink from "@/Components/General/atoms/PrimaryLink";
-import SidebarLink from "@/Components/General/atoms/SidebarLink";
-import SidebarProfile from "@/Components/General/atoms/SidebarProfile";
 import Title from "@/Components/General/atoms/Title";
-import Navbar from "@/Components/General/molecules/Navbar";
-import Sidebar from "@/Components/General/molecules/Sidebar";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { formatFullDate } from "@/utils/formatFullDate";
-import { Icon } from "@iconify/react";
 import { usePage } from "@inertiajs/react";
 import QRCode from "react-qr-code";
 
@@ -20,7 +14,7 @@ export default function Dashboard({ auth }) {
 
     const currentDate = new Date();
 
-    const userPresent = absensis.user_presents.find(
+    const userPresent = absensis?.user_presents.find(
         (present) => present.user_id == auth.user.id
     );
 

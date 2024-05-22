@@ -12,7 +12,7 @@ import { useForm, usePage } from "@inertiajs/react";
 import { useState } from "react";
 
 export default function KelompokEdit({ auth }) {
-    const { kelompoks, classes, users, analysts, designers, programmers } =
+    const { kelompoks, classes, users, analysts, designers, programmers, testings } =
         usePage().props;
 
     console.log("analysts", analysts);
@@ -31,6 +31,7 @@ export default function KelompokEdit({ auth }) {
         analysts: analysts.map((analyst) => analyst.user_id),
         designers: designers.map((designer) => designer.user_id),
         programmers: programmers.map((programmer) => programmer.user_id),
+        testings: testings.map((testing) => testing.user_id),
     });
 
     console.log("dataAnalyst", data.analysts);
@@ -248,6 +249,48 @@ export default function KelompokEdit({ auth }) {
                                         value={user.name}
                                         option={user.name}
                                         isSelected={data.programmers.includes(
+                                            user.id
+                                        )}
+                                        onClick={() =>
+                                            handleUserSelection(user.id)
+                                        }
+                                    />
+                                ))}
+                            </MultipleSelectField>
+                            <MultipleSelectField
+                                color="text-black"
+                                label="Testing Kelompok"
+                                name="testings"
+                                placeholder="Testing Kelompok"
+                                values={data.testings.map(
+                                    (userId) =>
+                                        users.find((user) => user.id === userId)
+                                            ?.name
+                                )}
+                                setValues={(selectedNames) => {
+                                    const selectedIds = selectedNames.map(
+                                        (name) =>
+                                            users.find(
+                                                (user) => user.name === name
+                                            )?.id
+                                    );
+                                    setData("testings", selectedIds);
+                                }}
+                            >
+                                <TextInput
+                                    name="searchTerm"
+                                    placeholder="Cari..."
+                                    value={searchTerm}
+                                    onChange={(e) =>
+                                        setSearchTerm(e.target.value)
+                                    }
+                                />
+                                {(filteredUsers || users).map((user) => (
+                                    <MultipleSelectItem
+                                        key={user.id}
+                                        value={user.name}
+                                        option={user.name}
+                                        isSelected={data.testings.includes(
                                             user.id
                                         )}
                                         onClick={() =>

@@ -22,7 +22,8 @@ class MateriFactory extends Factory
             'desc' => $this->faker->paragraph(),
             'cover' => $this->faker->imageUrl(),
             'file' => $this->faker->imageUrl(),
-            'link_video' => $this->faker->domainName(),
+            'link_video' => 'https://youtu.be/cmzZLmQb3xs?si=1wAYusCvcojjd33N',
+            'embed_link' => 'cmzZLmQb3xs',
             'mapel_id' => MataPelajaran::inRandomOrder()->first()->id
         ];
     }

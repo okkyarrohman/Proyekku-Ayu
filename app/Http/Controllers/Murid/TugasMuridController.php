@@ -115,7 +115,8 @@ class TugasMuridController extends Controller
             ]);
         }
 
-        return to_route('tugas.index');
+        // return to_route('tugas.index');
+        return redirect()->back();
     }
 
     /**
@@ -212,7 +213,8 @@ class TugasMuridController extends Controller
             ]);
         }
 
-        return to_route('tugas.index');
+        // return to_route('tugas.index');
+        return redirect()->back();
     }
 
     /**
