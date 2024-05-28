@@ -26,7 +26,4 @@ export const aboutItems = [
     {
         desc: "Teknologi Canggih dan Pendekatan Inovatif: Melalui teknologi mutakhir, ProyekKu memberikan pengalaman belajar yang menarik dan memanfaatkan pendekatan inovatif untuk meningkatkan hasil pembelajaran.",
     },
-    {
-        desc: "Lorem ipsum dolor sit amet consectetur. Elementum nisl duis tortor sed.",
-    },
 ];

@@ -39,7 +39,7 @@ export default function Footer({ authUser }) {
                 </p> */}
                 <div className="w-60">
                     <Description
-                        desc="Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sintelit officia consequat"
+                        desc="Telusuri lebih banyak tentang Learning Management ProyekKu!"
                         color="text-primary-600"
                         size="text-base"
                         align="lg:text-left text-center"
