@@ -14,11 +14,7 @@ export default function Landing({ auth }) {
     return (
         <LandingTemplate authUser={auth.user}>
             <Hero
-                desc="Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                    Laboriosam harum necessitatibus consectetur, ad minima animi
-                    perspiciatis doloribus molestias rem ullam eos autem magni!
-                    Inventore eius laudantium dicta deserunt quas doloremque
-                    facilis perspiciatis debitis"
+                desc="Website ini menyajikan berbagai macam fitur untuk menunjang proses pembelajaran menggunakan metode Project Based Learning. Melalui website ini pembelajaran menjadi lebih interaktif dan memungkinkan untuk kolaborasi antara siswa dan pengajar secara online. Semua materi pembelajaran, tugas, dan proyek dapat diakses dan dikelola dengan mudah melalui platform ini. Kami berkomitmen untuk meningkatkan pengalaman belajar Anda melalui teknologi canggih dan pendekatan inovatif. Selamat belajar di ProyekKu Learning Management System!"
             />
             <Feature>
                 {featureItems.map((item) => {
@@ -31,7 +27,7 @@ export default function Landing({ auth }) {
                     );
                 })}
             </Feature>
-            <About desc="Lorem ipsum dolor sit amet consectetur. Elementum nisl duis tortor sed. Suspendisse lobortis vitae quis vehicula pellentesque sit id. Urna posuere consequat velit vulputate faucibus pretium arcu accumsan sit. Vel venenatis sapien.">
+            <About desc="Platform ini dirancang khusus untuk mengintegrasikan metode pembelajaran Project Based Learning, memungkinkan siswa untuk belajar melalui proyek-proyek yang relevan dan menantang.">
                 {aboutItems.map((item) => {
                     return <AboutList desc={item.desc} />;
                 })}
