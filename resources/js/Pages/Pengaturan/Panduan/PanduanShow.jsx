@@ -5,10 +5,9 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 
 export default function PanduanShow({ auth }) {
     const panduanLists = [
-        "Lorem ipsum dolor sit amet consectetur. Elementum nisl duis tortor sed.",
-        "Lorem ipsum dolor sit amet consectetur. Elementum nisl duis tortor sed.",
-        "Lorem DDDD dolor sit amet consectetur. Elementum nisl duis tortor sed.",
-        "Lorem ipsum dolor sit amet consectetur. Elementum nisl duis tortor sed.",
+        "Langkah langkah penggunaan user manual aplikasi",
+        "Untuk murid, guru dan admin",
+        "tersedia secara rinci",
     ];
 
     return (
@@ -28,10 +27,12 @@ export default function PanduanShow({ auth }) {
                     {panduanLists.map((panduan, index) => {
                         return <StepList key={index} step={panduan} />;
                     })}
-                    <PrimaryLink
-                        text="Selengkapnya"
-                        href={route("panduan.detail")}
-                    />
+                    <a
+                    className="w-full rounded-full bg-primary-100 hover:bg-primary-200 py-2 px-6 font-semibold text-white text-base block text-center"
+                    href={route("panduan.detail")}
+                    >
+                        Download Panduan
+                    </a>
                 </div>
             </section>
         </AuthenticatedLayout>

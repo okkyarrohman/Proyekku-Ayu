@@ -43,15 +43,15 @@ class HomeController extends Controller
         $mapels = MataPelajaran::all();
 
         $absensis = Absensi::where('date', $currentDate)
-                    ->with(['classes', 'mapels', 'user_presents'])
-                    ->whereHas('mapels', function ($query) {
-                        $query->where('guru_id', Auth::user()->id);
-                    })
-                    ->first();
+            ->with(['classes', 'mapels', 'user_presents'])
+            ->whereHas('mapels', function ($query) {
+                $query->where('guru_id', Auth::user()->id);
+            })
+            ->first();
 
         $tugases = Tugas::with(['classes', 'answers', 'kelompoks'])->latest()->take(4)->get();
 
-        return Inertia::render('Guru/Dashboard', compact('murids', 'mapels' , 'absensis', 'tugases'));
+        return Inertia::render('Guru/Dashboard', compact('murids', 'mapels', 'absensis', 'tugases'));
     }
 
     public function murid()
@@ -59,17 +59,17 @@ class HomeController extends Controller
         $currentDate = Carbon::now()->toDateString();
 
         $absensis = Absensi::where('date', $currentDate)
-                    ->where('class_id', Auth::user()->class_id)
-                    ->with(['classes', 'mapels', 'user_presents'])
-                    ->first();
+            ->where('class_id', Auth::user()->class_id)
+            ->with(['classes', 'mapels', 'user_presents'])
+            ->first();
 
         $tugases = Tugas::with(['classes', 'answers.kelompoks.members', 'kelompoks'])
-                    ->where('class_id', Auth::user()->class_id)
-                    ->latest()->take(4)->get();
+            ->where('class_id', Auth::user()->class_id)
+            ->latest()->take(4)->get();
 
         $hasilBelajars = HasilBelajar::where('user_id', Auth::user()->id)
-                            ->with(['classes', 'mapels'])
-                            ->latest()->take(5)->get();
+            ->with(['classes', 'mapels'])
+            ->latest()->take(5)->get();
 
         return Inertia::render('Murid/Dashboard', compact('absensis', 'tugases', 'hasilBelajars'));
     }
@@ -81,5 +81,16 @@ class HomeController extends Controller
         $mapels = MataPelajaran::all();
 
         return Inertia::render('Admin/Dashboard', compact('users', 'mapels'));
+    }
+
+    public function paduanDownload()
+    {
+        $path = public_path('assets/Datauji.pdf');
+
+        if (file_exists($path)) {
+            return response()->download($path);
+        } else {
+            return response()->json(['message' => 'File not found.'], 404);
+        }
     }
 }

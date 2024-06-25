@@ -139,7 +139,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::patch('/profile/edit/{id}', [ProfileController::class, 'update'])->name('profile.update');
         Route::inertia('/panduan', 'Pengaturan/Panduan/PanduanShow')->name('panduan.show');
-        Route::inertia('/panduan/detail', 'Pengaturan/Panduan/PanduanDetail')->name('panduan.detail');
+        Route::get('/panduan/detail', [HomeController::class, 'paduanDownload'])->name('panduan.detail');
     });
 });
 
@@ -149,4 +149,4 @@ Route::middleware('auth')->group(function () {
 //     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 // });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
